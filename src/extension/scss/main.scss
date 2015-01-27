@@ -1,0 +1,31 @@
+/** 
+ * Master SCSS file, use to modify import order.
+ * Keep element styles in the appropriate folders
+ */
+@import 'compass';
+
+/** 
+ * Uncomment to use the procedural sprite sheet.
+ * See http://compass-style.org/help/tutorials/spriting/ for usage instructions
+ * You will need to have sprites in the sprites folder or SCSS will complain
+ * @import '../images/sprites/*.png';
+ * @include all-sprites-sprites;
+ */
+
+@include global-reset;
+
+/** 
+ * Load all partials
+ * Modify directory load order here
+ * Modify individual directories load order in individual _all.scss files
+ */
+@import 'base/all';
+@import 'helpers/all';
+@import 'components/all';
+@import 'layout/all';
+@import 'pages/all';
+@import 'vendor/all';
+
+#test {
+  background: #000000;
+}
