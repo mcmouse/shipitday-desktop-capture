@@ -7,19 +7,19 @@ To get the project going, you will need to install a few dependencies. I'm open 
 
 ## Dependencies
 
-1) [NodeJS/NPM](http://nodejs.org/) for the server and the build pipeline. Make sure that you've got node/npm installed globally.
-2) [FFMPEG](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#safe=off&q=install+ffmpeg) for the server. This one is a little more of a pain to get going, let me know if you have issues. I recommend [this guide](https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX) for installing on OSX. Again, important that this is installed globally.
-3) [Ruby](https://www.ruby-lang.org/en/documentation/installation/), [Bundler](http://bundler.io/), and [Compass](http://compass-style.org/) for SASS compilation
+1. [NodeJS/NPM](http://nodejs.org/) for the server and the build pipeline. Make sure that you've got node/npm installed globally.
+2. [FFMPEG](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#safe=off&q=install+ffmpeg) for the server. This one is a little more of a pain to get going, let me know if you have issues. I recommend [this guide](https://trac.ffmpeg.org/wiki/CompilationGuide/MacOSX) for installing on OSX. Again, important that this is installed globally.
+3. [Ruby](https://www.ruby-lang.org/en/documentation/installation/), [Bundler](http://bundler.io/), and [Compass](http://compass-style.org/) for SASS compilation
 
 ## Startup
-`git clone https://github.com/mcmouse/shipitday-desktop-capture.git`
-`cd shipitday-desktop-capture`
-`npm install`
-`bundle install`
-`cd src/server`
-`npm install` (to install server-specific packages)
-`cd ../..`
-`gulp watch`
+1. `git clone https://github.com/mcmouse/shipitday-desktop-capture.git`
+2. `cd shipitday-desktop-capture`
+3. `npm install`
+4. `bundle install`
+5. `cd src/server`
+6. `npm install` (to install server-specific packages)
+7. `cd ../..`
+8. `gulp watch`
 
 ### What `gulp watch` will do is:
 
