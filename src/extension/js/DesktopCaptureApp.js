@@ -5,7 +5,9 @@
 /** Creates the main application, setting up all app globals and keeping track of current state. */
 
 var Marionette = require('backbone-shim').Marionette,
-  RootView = require('views/RootView');
+  RootView = require('views/RootView'),
+  AudioModel = require('models/Audio'),
+  VideoModel = require('models/Video');
 
 module.exports = Marionette.Application.extend({
   container: '#app',
@@ -19,11 +21,24 @@ module.exports = Marionette.Application.extend({
     this.on('start', function () {
       this.RootView.showStep(1);
     });
+
+    this.setupModels();
   },
 
   //This function is global
   showStep: function (step) {
     this.RootView.showStep(step);
     this.currentStep = step;
-  }
+  },
+
+  restart: function () {
+    this.showStep(1);
+  },
+
+  setupModels: function () {
+    this.models = {
+      Audio: new AudioModel(),
+      Video: new VideoModel()
+    };
+  },
 });
