@@ -22,6 +22,7 @@ module.exports = Marionette.Application.extend({
       this.RootView.showStep(1);
     });
 
+    this.setupOptions();
     this.setupModels();
   },
 
@@ -41,4 +42,10 @@ module.exports = Marionette.Application.extend({
       Video: new VideoModel()
     };
   },
+
+  setupOptions: function () {
+    this.options = {
+      uploadEndpoint: '/upload',
+    };
+  }
 });

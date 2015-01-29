@@ -72,7 +72,7 @@
  * @see {@link https://github.com/muaz-khan/RecordRTC|RecordRTC Source Code}
  */
 
-module.exports = function (mediaStream, config) {
+function RecordRTC(mediaStream, config) {
   config = config || {};
 
   if (!mediaStream) {
