@@ -47,6 +47,10 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'addText', this.addText);
     this.listenTo(this.view, 'addBox', this.addBox);
     this.listenTo(this.view, 'addArrow', this.addArrow);
+    this.listenTo(this.view, 'addTriangle', this.addTriangle);
+
+    this.listenTo(this.view, 'submit', this.submitVideo);
+    this.listenTo(this.view, 'restart', desktopCaptureApp.restart.bind(desktopCaptureApp));
 
     this.listenTo(this.view, 'sliderReady', this.setupSlider);
     if (this.view._isShown) {
@@ -108,8 +112,20 @@ module.exports = Marionette.Object.extend({
     });
 
     this.collection.add(newShape);
-    this.updateShapes();
-    this.draw();
+  },
+
+  addTriangle: function () {
+    var newShape = new Shape({
+      currentTime: this.view.getCurrentTime(),
+      maxTime: this.view.getMaxTime()
+    });
+
+    newShape.initializeShape({
+      type: 'triangle',
+      color: 'red',
+    });
+
+    this.collection.add(newShape);
   },
 
   setupEditor: function () {
@@ -122,6 +138,23 @@ module.exports = Marionette.Object.extend({
       width: 640,
       height: 480
     });
+  },
+
+  updateShapes: function () {
+    var currentTime = this.view.getCurrentTime();
+    this.collection.each(function (model) {
+      var bounds = model.getBounds();
+      var showing = model.isShowing();
+      if (bounds.start <= currentTime && bounds.end >= currentTime && !showing) {
+        s3controller.canvas.add(model.get('Shape'));
+        model.set('showing', true);
+        model.showShape();
+      } else if ((bounds.start > currentTime && showing) || (bounds.end < currentTime && showing)) {
+        model.set('showing', false);
+        model.hideShape();
+      }
+    });
+    s3controller.updateBarPosition();
   },
 
   setupCollection: function () {
@@ -153,21 +186,6 @@ module.exports = Marionette.Object.extend({
     s3controller.canvas.renderAll();
   },
 
-  updateShapes: function () {
-    var currentTime = this.view.getCurrentTime();
-    this.collection.each(function (model) {
-      var bounds = model.getBounds();
-      var showing = model.isShowing();
-      if (bounds.start <= currentTime && bounds.end >= currentTime && !showing) {
-        s3controller.canvas.add(model.get('Shape'));
-        model.set('showing', true);
-      } else if ((bounds.start > currentTime && showing) || (bounds.end < currentTime && showing)) {
-        s3controller.canvas.remove(model.get('Shape'));
-        model.set('showing', false);
-      }
-    });
-  },
-
   setupSlider: function () {
     this.slider = this.view.getSlider();
     this.slider.on('slide', function (time) {
@@ -182,5 +200,86 @@ module.exports = Marionette.Object.extend({
     if (this.slider) {
       this.slider.bootstrapSlider('setValue', this.view.getCurrentTime(), false);
     }
+  },
+
+  submitVideo: function () {
+
+    var files = {};
+
+    desktopCaptureApp.RootView.showLoader();
+
+    var video = this.view.getVideo();
+    video.currentTime = 0;
+    this.recorder = RecordRTC(this.view.ui.canvas[0], {
+      type: "canvas",
+      canvas: {
+        width: 1280,
+        height: 720
+      },
+      video: {
+        width: 1280,
+        height: 720
+      }
+    });
+    this.canvas.deactivateAll().renderAll()
+    this.recorder.startRecording();
+    video.play();
+    this.draw();
+    video.onended = function () {
+      this.recorder.stopRecording();
+      this.recorder.getDataURL(function (dataURL) {
+
+        files.video = {
+          name: Utilities.getRandomName() + '.webm',
+          type: 'video/webm',
+          contents: dataURL,
+        };
+
+        console.log(files);
+
+        if (this.hasAudio) {
+          desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
+            files.audio = {
+              name: Utilities.getRandomName() + '.wav',
+              type: 'audio/wav',
+              contents: dataURL,
+            };
+
+            console.log(files);
+
+            $.ajax({
+              url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+              data: JSON.stringify(files),
+              type: 'POST',
+              contentType: 'application/json; charset=UTF-8',
+              success: function (response) {
+                desktopCaptureApp.options.downloadSrc = response;
+                desktopCaptureApp.RootView.hideLoader();
+                desktopCaptureApp.showStep(4);
+              },
+              error: function (xhr, status, error) {
+                console.log(status, error);
+              }
+            });
+          });
+        } else {
+          $.ajax({
+            url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+            data: JSON.stringify(files),
+            type: 'POST',
+            contentType: 'application/json; charset=UTF-8',
+            success: function (response) {
+              desktopCaptureApp.options.downloadSrc = response;
+              desktopCaptureApp.RootView.hideLoader();
+              desktopCaptureApp.showStep(4);
+            },
+            error: function (xhr, status, error) {
+              console.log(status, error);
+            }
+          });
+        }
+        //showLoader()
+      }.bind(this));
+    }.bind(this);
   },
 });
