@@ -28,6 +28,10 @@ module.exports = Backbone.Model.extend({
 
     this.on('shapeLoaded', function (shape) {
       this.set('Shape', shape);
+      setTimeout(function () {
+        s3controller.updateShapes();
+        s3controller.canvas.renderAll();
+      }, 100);
     });
 
     switch (options.type) {
