@@ -16,6 +16,7 @@ module.exports = Marionette.ItemView.extend({
 
   ui: {
     video: '#review-video',
+    audio: '#review-audio',
     nextButton: '.next-button',
     backButton: '.back-button',
   },
@@ -37,8 +38,28 @@ module.exports = Marionette.ItemView.extend({
     var video = this.ui.video[0];
     if (typeof video === "object") {
       video.src = src;
-      video.play();
+      this.trigger('mediaLoaded', 'video');
     }
+  },
+
+  setAudioSrc: function (src) {
+    var audio = this.ui.audio[0];
+    if (typeof audio === "object") {
+      audio.src = src;
+      this.trigger('mediaLoaded', 'audio');
+    }
+  },
+
+  play: function () {
+    this.ui.video[0].onplay = function () {
+      this.ui.audio[0].play();
+    }.bind(this);
+
+    this.ui.video[0].onpause = function () {
+      this.ui.audio[0].pause();
+    }.bind(this);
+
+    this.ui.video[0].play();
   },
 
   toggleControls: function () {

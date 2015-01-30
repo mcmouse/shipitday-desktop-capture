@@ -32,6 +32,7 @@ module.exports = Marionette.Application.extend({
   },
 
   restart: function () {
+    this.setupModels();
     this.showStep(1);
   },
 

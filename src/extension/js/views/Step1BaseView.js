@@ -14,14 +14,27 @@ module.exports = Marionette.ItemView.extend({
     record: '.record',
     previewVideo: '#previewvideo',
     stop: '.stop',
+<<<<<<< HEAD
     mic: '.mic',
     micIcon: '.micIcon'
+=======
+    audio: '.mic',
+    audioEl: '#previewaudio',
+>>>>>>> 5d52cca946b174d750b106756e4b07fc6f6bdae9
   },
 
   events: {
     'click @ui.record': 'recordVideo',
     'click @ui.stop': 'stopVideo',
+<<<<<<< HEAD
     'click @ui.mic': 'activateAudio'
+=======
+    'click @ui.audio': 'recordAudio',
+  },
+
+  recordAudio: function () {
+    this.trigger('audio');
+>>>>>>> 5d52cca946b174d750b106756e4b07fc6f6bdae9
   },
 
   recordVideo: function () {
@@ -55,4 +68,10 @@ module.exports = Marionette.ItemView.extend({
     video.src = src;
     video.play();
   },
+
+  setAudioSrc: function (src) {
+    var audio = this.ui.audioEl[0];
+    audio.src = src;
+    audio.play();
+  }
 });

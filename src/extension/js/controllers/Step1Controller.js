@@ -12,12 +12,33 @@ var Marionette = require('backbone-shim').Marionette;
 module.exports = Marionette.Object.extend({
   initialize: function (options) {
     this.view = options.view;
+    this.audioStream = false;
     this.setupEvents();
   },
 
   setupEvents: function () {
     this.listenTo(this.view, 'record', this.recordVideo);
     this.listenTo(this.view, 'stop', this.stopVideo);
+    this.listenTo(this.view, 'audio', this.recordAudio);
+  },
+
+  recordAudio: function () {
+    navigator.webkitGetUserMedia({
+      audio: true,
+    }, this.gotAudio.bind(this), this.getUserMediaError.bind(this));
+  },
+
+  gotAudio: function (stream) {
+    this.audioStream = stream;
+    stream.onended = this.audioStreamEnded.bind(this);
+    this.view.audioRecorder = this.audioRecorder = RecordRTC(stream, {
+      bufferSize: 16384
+    });
+    desktopCaptureApp.models.Audio.set('recorder', this.audioRecorder);
+  },
+
+  audioStreamEnded: function () {
+    this.audioRecorder.stopRecording();
   },
 
   recordVideo: function () {
@@ -27,6 +48,9 @@ module.exports = Marionette.Object.extend({
 
   stopVideo: function () {
     this.stream.stop();
+    if (this.audioStream) {
+      this.audioStream.stop();
+    }
     desktopCaptureApp.showStep(2);
   },
 
@@ -54,9 +78,6 @@ module.exports = Marionette.Object.extend({
     this.view.setVideoSrc(URL.createObjectURL(stream));
     stream.onended = this.streamEnded.bind(this);
 
-    //May want to change how we pass models
-    this.view.recorder = this.recorder;
-
     this.recorder = RecordRTC(this.stream, {
       type: "video",
       canvas: {
@@ -69,13 +90,19 @@ module.exports = Marionette.Object.extend({
       }
     });
 
+    //May want to change how we pass models
+    this.view.recorder = this.recorder;
 
     desktopCaptureApp.models.Video.set('recorder', this.recorder);
     this.recorder.startRecording();
+    if (this.audioStream) {
+      this.audioRecorder.startRecording();
+    }
   },
 
   getUserMediaError: function () {
-    console.log("User media error.")
+    console.log("User media error.");
+    desktopCaptureApp.reset();
   },
 
   streamEnded: function () {
