@@ -26,12 +26,14 @@ var config = {
     //HTML gets passed through directly
     html: './src/extension/html/*.html',
     //Browserify-compatible start file
+    manifest: './src/extension/manifest.json',
+    background: './src/extension/js/background.js',
     js: './src/extension/js/start.js',
     jslibs: './src/extension/js/libs/*.js',
     //For library CSS that doesn't get passed through SASS
     images: './src/extension/img/*',
     css: './src/extension/css/*.css',
-    fonts: './src/extension/assets/fonts/*',
+    fonts: './src/extension/fonts/*',
     scss: ['./src/extension/scss/*.scss',
       './src/extension/scss/**/*.scss'
     ],
@@ -43,7 +45,7 @@ var config = {
     extension: './dist/extension/',
   },
   outputFiles: {
-    js: 'js/main.js',
+    js: 'js/app.js',
     //Concat CSS libraries
     css: 'css/libs.css',
     scss: 'css/main.css',
@@ -53,7 +55,6 @@ var config = {
     paths: [
       './src/extension/js/',
       './src/extension/js/libs/',
-      './src/extension/templates/',
     ],
     extensions: ['.html'],
   },
@@ -238,6 +239,12 @@ gulp.task('static', ['clean'], function () {
   buildFonts();
   buildImages();
   buildJSLibs();
+
+  gulp.src(config.inputFiles.manifest)
+    .pipe(gulp.dest(config.outputDirs.extension));
+
+  gulp.src(config.inputFiles.background)
+    .pipe(gulp.dest(config.outputDirs.extension));
 });
 
 gulp.task('scss', ['clean'], function () {
@@ -257,7 +264,7 @@ gulp.task('server', ['clean'], function () {
 });
 
 //Persistent build task
-gulp.task('build', ['clean', 'server', 'scss', 'js']);
+gulp.task('build', ['clean', 'server', 'static', 'scss', 'js']);
 
 //Doesn't re-run the JS task because we only want to construct one
 //watchify bundler
@@ -278,12 +285,16 @@ gulp.task('watch', ['clean', 'server', 'static', 'scss'], function () {
     }
   });
 
-  nodemon({
-    script: './dist/server/server.js',
-    ext: 'js',
-  }).on('restart', function () {
-    console.log('Node server restarted!');
-  });
+  setTimeout(function () {
+    nodemon({
+      script: './dist/server/server.js',
+      ext: 'js',
+    }).on('restart', function () {
+      console.log('Node server restarted!');
+    });
+  }, 1000);
 });
+
+gulp.task('default', ['build']);
 
 /* jshint ignore:end */

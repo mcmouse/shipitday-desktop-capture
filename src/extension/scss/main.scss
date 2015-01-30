@@ -1,31 +1,188 @@
 /** 
- * Master SCSS file, use to modify import order.
- * Keep element styles in the appropriate folders
- */
+* Master SCSS file, use to modify import order.
+* Keep element styles in the appropriate folders
+*/
 @import 'compass';
-
-/** 
- * Uncomment to use the procedural sprite sheet.
- * See http://compass-style.org/help/tutorials/spriting/ for usage instructions
- * You will need to have sprites in the sprites folder or SCSS will complain
- * @import '../images/sprites/*.png';
- * @include all-sprites-sprites;
- */
 
 @include global-reset;
 
 /** 
- * Load all partials
- * Modify directory load order here
- * Modify individual directories load order in individual _all.scss files
- */
-@import 'base/all';
-@import 'helpers/all';
-@import 'components/all';
-@import 'layout/all';
-@import 'pages/all';
-@import 'vendor/all';
+* Load all partials
+* Modify directory load order here
+* Modify individual directories load order in individual _all.scss files
+*/
 
-#test {
-  background: #000000;
+html {
+	overflow-y: scroll;
+}
+
+body {
+	background-image: url('../img/pixel_weave.png');
+}
+
+video {
+	width: 640px;
+	height: 480px;
+	background: #000;
+	display: block !important;
+	margin: 25px auto;
+}
+
+nav {
+	background-color: #00BCD4  ;
+
+	img {
+		width: 100%;
+		max-width: 75px;
+		margin: 10px;
+	}
+}
+
+.btn-floating.mic {
+	display: block;
+	margin: 15px auto;
+	@include transition(all 0.3s);
+}
+
+.button-wrap {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.overlay {
+	@include opacity(1);
+	@include transition(all 0.3s);
+	
+	&.hide {
+		@include opacity(0);
+	}
+}
+
+.btn.stop {
+	display: none;
+}
+
+
+
+.record, .stop {
+	margin-left: 10px;
+	margin-right: 10px;
+	@include transition(all 0.3s);
+}
+
+.preloader-wrapper {
+	display: block;
+	margin: 0 auto;
+	// @include transition(all 0.3s);
+	
+	&.active {
+		display: block;
+		z-index: 5;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(transition(-50%, -50%));
+	}
+}
+
+canvas {
+	width: 640px;
+	height: 480px;
+	display: block;
+	margin: 0 auto;
+}
+
+#hidden-video {
+	visibility: hidden;
+	pointer-events: none;
+	height: 1px;
+}
+
+.side-nav {
+	li {
+		text-align: center;
+	}
+
+	.btn-large {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+.canvas-container {
+	margin: 15px auto;
+}
+
+#progress-bar {
+	width: 100%;
+	max-width: 640px;
+	display: block;
+	border: 1px solid black;
+	
+	span {
+		border: 1px solid;
+	}
+}
+
+#timeline {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.slider {
+	width: 640px !important;
+	margin: 0 auto !important;
+	height: 20px !important;
+	display: block !important;
+	
+	.tooltip {
+		display: none;
+	}
+}
+
+.elessar-rangebar {
+	display: block !important;
+	margin: 0 auto !important;
+	max-width: 655px !important;
+	height: 50px !important;
+	line-height: 50px !important;
+	background: none !important;
+}
+
+.elessar-range {
+	width: 0 !important;
+	z-index: 10 !important;
+	height: 100% !important;
+	max-height: 4px !important;
+	margin-top: 17px !important;
+	border-radius: 36px !important;
+	overflow: visible !important;
+}
+
+.elessar-handle {
+	background: #FFF !important;
+	width: 15px !important;
+	height: 15px !important;
+	// position: static !important;
+	top: -5px !important;
+	bottom: 0 !important;
+	border-radius: 15px !important;
+}
+
+.close-timeline {
+	float: right;
+	margin-bottom: 0 !important;
+	margin-top: 6.5px;
+}
+
+.edit-button {
+	position: absolute !important;
+	top: 35px;
+	left: 108px;
+}
+
+.play-button {
+	display: block !important;
+	margin: 0 auto;
 }

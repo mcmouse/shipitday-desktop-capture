@@ -1,0 +1,47 @@
+<div class="canvas-wrap">
+	<canvas id="canvas"></canvas>
+</div>
+<div id="controls">
+	<button class="play-button btn-large waves-effect waves-light green">Play <i class='mdi-av-skip-next right'></i></button>
+	<input id="progress-bar" data-slider-id='ex1Slider' type="text" />
+	</div>
+	<div id="timeline"></div>
+</div>
+
+<ul id="slide-out" class="side-nav full">
+    <li>
+    	<button class="btn-floating btn-large waves-effect waves-light green">
+    		<i class="mdi-editor-format-size"></i>
+    	</button>
+    </li>
+    <li>
+    	<button class="btn-floating btn-large waves-effect waves-light green">
+    		<i class="mdi-image-filter-none"></i>
+    	</button>
+    </li>
+    <li>
+    	<button class="btn-floating btn-large waves-effect waves-light green">
+    		<i class="mdi-navigation-arrow-forward"></i>
+    	</button>
+    </li>
+    <li>
+    	<button class="btn-floating btn-large waves-effect waves-light green">
+    		<i class="mdi-editor-format-color-fill"></i>
+    		<input id="color-picker" type="text"/>
+    	</button>
+    </li>
+</ul>
+<!-- <button data-activates="slide-out" class="edit-button btn-floating btn-large waves-effect waves-light green"><i class="mdi-editor-mode-edit"></i></a> -->
+
+<a href="#" data-activates="slide-out" class="button-collapse edit-button btn-floating btn-large waves-effect waves-light green"><i class="mdi-editor-mode-edit"></i></a>
+
+<div class="button-wrap">
+	<button class="accept-button btn-floating btn-large waves-effect waves-light green accent-3">
+		<i class="large mdi-navigation-check"></i>
+	</button>
+	<button class="restart-button btn-floating btn-large waves-effect waves-light red accent-3">
+		<i class="large mdi-navigation-refresh"></i>
+	</button>
+</div>
+<video id="hidden-video"></video>
+<audio id="hidden-audio"></audio>
