@@ -28,9 +28,7 @@ module.exports = Marionette.Object.extend({
   },
 
   downloadVideo: function () {
-    chrome.downloads.download({
-      url: this.downloadLink,
-    });
+    window.open(this.downloadLink);
   }
 
 });
