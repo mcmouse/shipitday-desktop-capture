@@ -18,7 +18,6 @@ module.exports = Marionette.Object.extend({
   setupEvents: function () {
     this.listenTo(this.view, 'record', this.recordVideo);
     this.listenTo(this.view, 'stop', this.stopVideo);
-    this.listenTo(this.view, 'play', this.playingVideo);
   },
 
   recordVideo: function () {
@@ -52,32 +51,21 @@ module.exports = Marionette.Object.extend({
   gotStream: function (stream) {
     this.stream = stream;
     this.view.setVideoSrc(URL.createObjectURL(stream));
-    var wh = this.view.getVideoSize();
-    console.log(wh);
     stream.onended = this.streamEnded.bind(this);
-
-    this.recorder = RecordRTC(stream, {
+    desktopCaptureApp.models.Video.set('recorder', this.recorder);
+    this.recorder = RecordRTC(this.stream, {
       type: "video",
       canvas: {
-        width: wh.width,
-        height: wh.height
+        width: 1280,
+        height: 720
       },
       video: {
-        width: wh.width,
-        height: wh.height
+        width: 1280,
+        height: 720
       }
     });
-    desktopCaptureApp.models.Video.set('recorder', this.recorder);
-    this.recorder.startRecording();
-  },
 
-  playingVideo: function () {
-    var size = this.view.getSize();
-    this.recorder = RecordRTC(stream, {
-      type: "video",
-      canvas: size,
-      video: size
-    });
+    this.recorder.startRecording();
   },
 
   getUserMediaError: function () {
