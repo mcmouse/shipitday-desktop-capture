@@ -18,6 +18,7 @@ module.exports = Marionette.Object.extend({
   setupEvents: function () {
     this.listenTo(this.view, 'record', this.recordVideo);
     this.listenTo(this.view, 'stop', this.stopVideo);
+    this.listenTo(this.view, 'play', this.playingVideo);
   },
 
   recordVideo: function () {
@@ -25,12 +26,12 @@ module.exports = Marionette.Object.extend({
       ["screen", "window"], this.onAccessApproved.bind(this));
   },
 
-  stopVideo: function() {
+  stopVideo: function () {
     this.stream.stop();
   },
 
-  onAccessApproved: function(id) {
-    if(!id) {
+  onAccessApproved: function (id) {
+    if (!id) {
       console.log("Access denied.");
     }
 
@@ -38,14 +39,16 @@ module.exports = Marionette.Object.extend({
       audio: false,
       video: {
         mandatory: {
-        chromeMediaSource: "desktop",
-        chromeMediaSourceId: id
+          chromeMediaSource: "desktop",
+          chromeMediaSourceId: id,
+          maxWidth: 1920,
+          maxHeight: 1200
         }
       }
     }, this.gotStream.bind(this), this.getUserMediaError.bind(this));
   },
 
-  gotStream: function(stream) {
+  gotStream: function (stream) {
     this.stream = stream;
     this.view.setVideoSrc(URL.createObjectURL(stream));
     stream.onended = this.streamEnded.bind(this);
@@ -57,13 +60,22 @@ module.exports = Marionette.Object.extend({
     this.recorder.startRecording();
   },
 
-  getUserMediaError: function() {
+  playingVideo: function () {
+    var size = this.view.getSize();
+    this.recorder = RecordRTC(stream, {
+      type: "video",
+      canvas: size,
+      video: size
+    });
+  },
+
+  getUserMediaError: function () {
     console.log("User media error.")
   },
 
-  streamEnded: function() {
+  streamEnded: function () {
     this.recorder.stopRecording();
-    this.recorder.getDataURL(function(url){
+    this.recorder.getDataURL(function (url) {
       this.view.toggleControls();
       this.view.setVideoSrc(url);
     }.bind(this));

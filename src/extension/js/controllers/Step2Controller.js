@@ -13,8 +13,12 @@ var Marionette = require('backbone-shim').Marionette,
 module.exports = Marionette.Object.extend({
   initialize: function (options) {
     this.view = options.view;
-    this.view.render();
+    this.recorder = desktopCaptureApp.models.Video.get('recorder');
     this.setupEvents();
+
+    this.recorder.getDataURL(function (url) {
+      this.view.setVideoSrc(url);
+    }.bind(this));
   },
 
   setupEvents: function () {
@@ -43,7 +47,5 @@ module.exports = Marionette.Object.extend({
       type: 'audio/wav',
       contents: audioDataURL,
     };
-
-
   },
 });

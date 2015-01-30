@@ -25,17 +25,17 @@ module.exports = Marionette.ItemView.extend({
     this.trigger('record');
   },
 
-  stopVideo: function() {
-  	this.trigger('stop');
+  stopVideo: function () {
+    this.trigger('stop');
   },
 
-  setVideoSrc: function(src) {
-  	var video =this.ui.previewVideo[0];
-  	video.src = src;
-  	video.play();
+  setVideoSrc: function (src) {
+    var video = this.ui.previewVideo[0];
+    video.src = src;
+    video.play();
   },
 
-  toggleControls:function(){
-  	this.ui.previewVideo[0].controls = true;
+  toggleControls: function () {
+    this.ui.previewVideo[0].controls = true;
   }
 });

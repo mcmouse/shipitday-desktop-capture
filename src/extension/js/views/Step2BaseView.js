@@ -31,5 +31,15 @@ module.exports = Marionette.ItemView.extend({
 
   restart: function () {
     this.trigger('restart');
-  }
+  },
+
+  setVideoSrc: function (src) {
+    var video = this.ui.video[0];
+    video.src = src;
+    video.play();
+  },
+
+  toggleControls: function () {
+    this.ui.video[0].controls = true;
+  },
 });
