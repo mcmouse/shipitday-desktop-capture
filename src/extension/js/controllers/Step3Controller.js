@@ -43,12 +43,58 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'addShape', this.addShape);
     this.listenTo(this.view, 'playing', this.draw);
     this.listenTo(this.view, 'mediaLoaded', this.draw);
+
+    this.listenTo(this.view, 'addText', this.addText);
+    this.listenTo(this.view, 'addBox', this.addBox);
+    this.listenTo(this.view, 'addArrow', this.addArrow);
     if (this.view._isShown) {
       this.setupEditor();
     }
   },
 
   addShape: function () {
+    var newShape = new Shape({
+      currentTime: this.view.getCurrentTime(),
+      maxTime: this.view.getMaxTime()
+    });
+
+    newShape.initializeShape({
+      type: 'square',
+      color: 'red',
+    }, this.addShapeToCanvas.bind(this));
+
+    this.collection.add(newShape);
+  },
+
+  addText: function() {
+    var newShape = new Shape({
+      currentTime: this.view.getCurrentTime(),
+      maxTime: this.view.getMaxTime()
+    });
+
+    newShape.initializeShape({
+      type: 'text',
+      color: 'red',
+    }, this.addShapeToCanvas.bind(this));
+
+    this.collection.add(newShape);
+  },
+
+  addBox: function() {
+    var newShape = new Shape({
+      currentTime: this.view.getCurrentTime(),
+      maxTime: this.view.getMaxTime()
+    });
+
+    newShape.initializeShape({
+      type: 'box',
+      color: 'red',
+    }, this.addShapeToCanvas.bind(this));
+
+    this.collection.add(newShape);
+  },
+
+  addArrow: function() {
     var newShape = new Shape({
       currentTime: this.view.getCurrentTime(),
       maxTime: this.view.getMaxTime()

@@ -17,7 +17,7 @@ module.exports = Backbone.Model.extend({
 
     switch (options.type) {
     case 'square':
-      shape = new fabric.Rect({
+      var shape = new fabric.Rect({
         fill: options.color,
         width: 100,
         height: 100
@@ -27,7 +27,7 @@ module.exports = Backbone.Model.extend({
       break;
 
     case 'box':
-      shape = new fabric.Rect({
+      var shape = new fabric.Rect({
         fill: 'rgba(0,0,0,0)',
         width: 125,
         height: 125,
@@ -39,7 +39,7 @@ module.exports = Backbone.Model.extend({
       break;
 
     case 'text':
-      shape = new fabric.IText("Hello world!", {
+      var shape = new fabric.IText("Hello world!", {
         fill: options.color,
         fontSize: 20
       });
@@ -56,7 +56,7 @@ module.exports = Backbone.Model.extend({
       break;
 
     case 'triangle':
-      shape = new fabric.Triangle({
+      var shape = new fabric.Triangle({
         fill: options.color,
         width: 100,
         height: 100
