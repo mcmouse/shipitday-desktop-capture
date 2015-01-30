@@ -47,6 +47,8 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'addText', this.addText);
     this.listenTo(this.view, 'addBox', this.addBox);
     this.listenTo(this.view, 'addArrow', this.addArrow);
+
+    this.listenTo(this.view, 'sliderReady', this.setupSlider);
     if (this.view._isShown) {
       this.setupEditor();
     }
@@ -66,7 +68,7 @@ module.exports = Marionette.Object.extend({
     this.collection.add(newShape);
   },
 
-  addText: function() {
+  addText: function () {
     var newShape = new Shape({
       currentTime: this.view.getCurrentTime(),
       maxTime: this.view.getMaxTime()
@@ -80,7 +82,7 @@ module.exports = Marionette.Object.extend({
     this.collection.add(newShape);
   },
 
-  addBox: function() {
+  addBox: function () {
     var newShape = new Shape({
       currentTime: this.view.getCurrentTime(),
       maxTime: this.view.getMaxTime()
@@ -94,7 +96,7 @@ module.exports = Marionette.Object.extend({
     this.collection.add(newShape);
   },
 
-  addArrow: function() {
+  addArrow: function () {
     var newShape = new Shape({
       currentTime: this.view.getCurrentTime(),
       maxTime: this.view.getMaxTime()
@@ -152,11 +154,19 @@ module.exports = Marionette.Object.extend({
     s3controller.updateBarPosition();
   },
 
-  updateBarPosition: function () {
-
+  setupSlider: function () {
+    this.slider = this.view.getSlider();
+    this.slider.on('slideStop', function (time) {
+      var video = this.view.getVideo();
+      video.currentTime = time.value / 1000;
+      video.pause();
+      this.draw();
+    }.bind(this));
   },
 
-  seekVideo: function () {
-
-  }
+  updateBarPosition: function () {
+    if (this.slider) {
+      this.slider.bootstrapSlider('setValue', this.view.getCurrentTime(), false);
+    }
+  },
 });

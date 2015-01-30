@@ -47,7 +47,6 @@ module.exports = Marionette.LayoutView.extend({
   onShow: function () {
     this.trigger('show');
     this.ui.edit.sideNav();
-    this.ui.progressBar.bootstrapSlider();
     this.ui.toolTip.tooltip({
       delay: 50
     });
@@ -89,7 +88,22 @@ module.exports = Marionette.LayoutView.extend({
     if (typeof video === "object") {
       video.src = src;
       this.trigger('mediaLoaded', 'video');
+      video.onloadedmetadata = this.setSliderRange.bind(this);
     }
+  },
+
+  setSliderRange: function () {
+    this.ui.progressBar.bootstrapSlider({
+      min: 0,
+      value: 0,
+      max: this.getMaxTime()
+    });
+
+    this.trigger('sliderReady');
+  },
+
+  getSlider: function () {
+    return this.ui.progressBar;
   },
 
   setAudioSrc: function (src) {
@@ -131,15 +145,15 @@ module.exports = Marionette.LayoutView.extend({
     return this.ui.video[0];
   },
 
-  textAdder: function() {
+  textAdder: function () {
     this.trigger('addText');
   },
 
-  boxAdder: function() {
+  boxAdder: function () {
     this.trigger('addBox');
   },
 
-  arrowAdder: function() {
+  arrowAdder: function () {
     this.trigger('addArrow');
   }
 
