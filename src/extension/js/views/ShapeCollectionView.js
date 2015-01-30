@@ -9,5 +9,4 @@ var Marionette = require('backbone-shim').Marionette,
 
 module.exports = Marionette.CollectionView.extend({
   childView: TimelineView,
-
 });

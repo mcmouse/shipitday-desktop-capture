@@ -48,16 +48,18 @@ module.exports = Marionette.LayoutView.extend({
 
   isPlaying: function () {
     var video = this.ui.video[0];
-    return (!video.paused && !video.ended && video.currentTime > 0);
+    return (!video.paused && !video.ended);
   },
 
   togglePlaying: function () {
     if (this.isPlaying()) {
       this.ui.video[0].pause();
       this.ui.play.text('Play');
+      this.trigger('paused');
     } else {
       this.ui.video[0].play();
       this.ui.play.text('Pause');
+      this.trigger('playing');
     }
   },
 
@@ -90,7 +92,7 @@ module.exports = Marionette.LayoutView.extend({
   bindEndEvent: function () {
     this.ui.video[0].onended = function () {
       this.ui.play.text('Play');
-    };
+    }.bind(this);
   },
 
   //Returns current time in MS
@@ -101,6 +103,10 @@ module.exports = Marionette.LayoutView.extend({
   //Returns video duration in MS
   getMaxTime: function () {
     return this.ui.video[0].duration * 1000;
+  },
+
+  getVideo: function () {
+    return this.ui.video[0];
   }
 
 });
