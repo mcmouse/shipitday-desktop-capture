@@ -17,19 +17,19 @@ module.exports = Backbone.Model.extend({
   },
 
   showShape: function () {
-          this.get('Shape').animate('opacity', 1,{
-        onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
-        duration: 250,
+    this.get('Shape').animate('opacity', 1, {
+      onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
+      duration: 150,
     });
   },
 
   hideShape: function () {
-          this.get('Shape').animate('opacity', 0,{
-        onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
-        duration: 250,
-        onComplete: function() {
-          s3controller.canvas.remove(this.get('Shape'));
-        }.bind(this)
+    this.get('Shape').animate('opacity', 0, {
+      onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
+      duration: 150,
+      onComplete: function () {
+        s3controller.canvas.remove(this.get('Shape'));
+      }.bind(this)
     });
   },
 
@@ -84,7 +84,7 @@ module.exports = Backbone.Model.extend({
           width: 30,
           height: 40,
           fill: 'red',
-        opacity: 0
+          opacity: 0
         });
         this.trigger('shapeLoaded', group);
       }.bind(this));
