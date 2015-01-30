@@ -1,7 +1,3 @@
-/** 
- * Master SCSS file, use to modify import order.
- * Keep element styles in the appropriate folders
- */
 .materialize-red.lighten-5 {
   background-color: #fdeaeb !important;
 }
@@ -3181,8 +3177,8 @@ span.badge.new:after {
 
 @font-face {
   font-family: "Material-Design-Icons";
-  src: url("../font/material-design-icons/Material-Design-Icons.eot?-g7cqhn");
-  src: url("../font/material-design-icons/Material-Design-Icons.eot?#iefix-g7cqhn") format("embedded-opentype"), url("../font/material-design-icons/Material-Design-Icons.woff?-g7cqhn") format("woff"), url("../font/material-design-icons/Material-Design-Icons.ttf?-g7cqhn") format("truetype"), url("../font/material-design-icons/Material-Design-Icons.svg?-g7cqhn#Material-Design-Icons") format("svg");
+  src: url("fonts/Material-Design-Icons.eot?-g7cqhn");
+  src: url("fonts/Material-Design-Icons.eot?#iefix-g7cqhn") format("embedded-opentype"), url("fonts/Material-Design-Icons.woff?-g7cqhn") format("woff"), url("fonts/Material-Design-Icons.ttf?-g7cqhn") format("truetype"), url("fonts/Material-Design-Icons.svg?-g7cqhn#Material-Design-Icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -9840,126 +9836,4 @@ ul.side-nav.fixed .collapsible-body li.active a {
   .picker--time .picker__box {
     margin-bottom: 5em;
   }
-}
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-html {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-q, blockquote {
-  quotes: none;
-}
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
-
-a img {
-  border: none;
-}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-  display: block;
-}
-
-/** 
- * Load all partials
- * Modify directory load order here
- * Modify individual directories load order in individual _all.scss files
- */
-<<<<<<< HEAD
-body {
-  background-image: url("../img/pixel_weave.png");
-}
-
-=======
-/** Use to modify include order and toggle includes for the base directory */
-/** Use to modify include order and toggle includes for the helpers directory */
-/* ------------------------ 
-Breakpoint Usage:
-
-.selector {
-  color: red;
-  @include breakpoint(desktop) { width: 50px; }
-  @include breakpoint(mobile) { width: 100%; }
-}
-*/
-/** Use to modify include order and toggle includes for the components directory */
-video {
-  width: 640px;
-  height: 480px;
-}
-
-/** Use to modify include order and toggle includes for the layout directory */
-/** Use to modify include order and toggle includes for the pages directory */
-/** Use to modify include order and toggle includes for the vendor directory */
->>>>>>> a25498f0c9546707b9946046c293378b416ee555
-video {
-  width: 640px;
-  height: 480px;
-  background: #000;
-  display: block !important;
-  margin: 25px auto;
-}
-
-header {
-  background-color: #00BCD4;
-  height: 200px;
-}
-header img {
-  width: 100%;
-  max-width: 150px;
-  float: left;
-  margin: 55px;
-}
-
-.mic {
-  display: block !important;
-  margin: 0 auto;
-}
-
-.button-wrap {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.record, .stop {
-  margin-left: 10px;
-  margin-right: 10px;
 }

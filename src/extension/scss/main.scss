@@ -3,14 +3,7 @@
  * Keep element styles in the appropriate folders
  */
 @import 'compass';
-
-/** 
- * Uncomment to use the procedural sprite sheet.
- * See http://compass-style.org/help/tutorials/spriting/ for usage instructions
- * You will need to have sprites in the sprites folder or SCSS will complain
- * @import '../images/sprites/*.png';
- * @include all-sprites-sprites;
- */
+@import 'materialize';
 
 @include global-reset;
 
@@ -19,14 +12,44 @@
  * Modify directory load order here
  * Modify individual directories load order in individual _all.scss files
  */
-@import 'base/all';
-@import 'helpers/all';
-@import 'components/all';
-@import 'layout/all';
-@import 'pages/all';
-@import 'vendor/all';
+
+ body {
+ 	background-image: url('../img/pixel_weave.png');
+ }
 
 video {
   width: 640px;
   height: 480px;
+  background: #000;
+  display: block !important;
+  margin: 25px auto;
 }
+
+header {
+	background-color: #00BCD4;
+	height: 200px;
+	
+	img {
+		width: 100%;
+		max-width: 150px;
+		float: left;
+		margin: 55px;
+	}
+}
+
+.mic {
+	display: block !important;
+	margin: 0 auto;
+}
+
+.button-wrap {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.record, .stop {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+

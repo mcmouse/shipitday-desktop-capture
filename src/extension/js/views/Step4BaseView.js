@@ -16,9 +16,33 @@ module.exports = Marionette.ItemView.extend({
 
   ui: {
     video: '#review-video',
-    nextButton: '.share-button',
-    backButton: '.download-button',
-    restartButton: '.download-button',
+    shareButton: '.share-button',
+    downloadButton: '.download-button',
+    restartButton: '.restart-button',
+  },
+
+  events: {
+    'click @ui.shareButton': 'shareVideo',
+    'click @ui.downloadButton': 'downloadVideo',
+    'click @ui.restartButton': 'restartVideo',
+  },
+
+  shareVideo: function () {
+    //this.trigger('submit');
+  },
+
+  downloadVideo: function () {
+    //this.trigger('submit');
+  },
+
+  restartVideo: function () {
+    //this.trigger('submit');
+  },
+
+  setVideoSrc: function (src) {
+    var video = this.ui.video[0];
+    video.src = src;
+    video.play();
   },
 
 });
