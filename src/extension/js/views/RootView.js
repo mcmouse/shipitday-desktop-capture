@@ -69,7 +69,6 @@ module.exports = Marionette.LayoutView.extend({
         this.getRegion('step' + step).show(
           s4v
           );
-        s4v.setVideoSrc(desktopCaptureApp.options.downloadSrc);
         new Step4Controller({
           view: s4v
         });
