@@ -39,6 +39,9 @@ module.exports = Marionette.Object.extend({
   },
 
   setupEvents: function () {
+    this.listenTo(this.view, 'submit', this.submitVideo);
+    this.listenTo(this.view, 'restart', desktopCaptureApp.restart.bind(desktopCaptureApp));
+
     this.listenTo(this.view, 'show', this.setupEditor);
     this.listenTo(this.view, 'addShape', this.addShape);
     this.listenTo(this.view, 'playing', this.draw);
@@ -168,5 +171,65 @@ module.exports = Marionette.Object.extend({
     if (this.slider) {
       this.slider.bootstrapSlider('setValue', this.view.getCurrentTime(), false);
     }
+  },
+  submitVideo: function () {
+
+    var files = {};
+
+    desktopCaptureApp.RootView.showLoader();
+
+    desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
+
+      files.video = {
+        name: Utilities.getRandomName() + '.webm',
+        type: 'video/webm',
+        contents: dataURL,
+      };
+
+      console.log(files);
+
+      if (this.hasAudio) {
+        desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
+          files.audio = {
+            name: Utilities.getRandomName() + '.wav',
+            type: 'audio/wav',
+            contents: dataURL,
+          };
+
+          console.log(files);
+
+          $.ajax({
+            url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+            data: JSON.stringify(files),
+            type: 'POST',
+            contentType: 'application/json; charset=UTF-8',
+            success: function (response) {
+              desktopCaptureApp.options.downloadSrc = response;
+              desktopCaptureApp.RootView.hideLoader();
+              desktopCaptureApp.showStep(4);
+            },
+            error: function (xhr, status, error) {
+              console.log(status, error);
+            }
+          });
+        });
+      } else {
+        $.ajax({
+          url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+          data: JSON.stringify(files),
+          type: 'POST',
+          contentType: 'application/json; charset=UTF-8',
+          success: function (response) {
+            desktopCaptureApp.options.downloadSrc = response;
+            desktopCaptureApp.RootView.hideLoader();
+            desktopCaptureApp.showStep(4);
+          },
+          error: function (xhr, status, error) {
+            console.log(status, error);
+          }
+        });
+      }
+      //showLoader()
+    }.bind(this));
   },
 });
