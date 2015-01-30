@@ -158,7 +158,7 @@ module.exports = Marionette.Object.extend({
     this.collection.each(function (model) {
       var bounds = model.getBounds();
       var showing = model.isShowing();
-      if (bounds.start < currentTime && bounds.end > currentTime && !showing) {
+      if (bounds.start <= currentTime && bounds.end >= currentTime && !showing) {
         s3controller.canvas.add(model.get('Shape'));
         model.set('showing', true);
       } else if ((bounds.start > currentTime && showing) || (bounds.end < currentTime && showing)) {
