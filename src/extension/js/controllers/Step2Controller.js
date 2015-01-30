@@ -55,64 +55,6 @@ module.exports = Marionette.Object.extend({
   },
 
   submitVideo: function () {
-
     desktopCaptureApp.showStep(3);
-    // var files = {};
-
-    // desktopCaptureApp.RootView.showLoader();
-
-    // desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
-
-    //   files.video = {
-    //     name: Utilities.getRandomName() + '.webm',
-    //     type: 'video/webm',
-    //     contents: dataURL,
-    //   };
-
-    //   console.log(files);
-
-    //   if (this.hasAudio) {
-    //     desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
-    //       files.audio = {
-    //         name: Utilities.getRandomName() + '.wav',
-    //         type: 'audio/wav',
-    //         contents: dataURL,
-    //       };
-
-    //       console.log(files);
-
-    //       $.ajax({
-    //         url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
-    //         data: JSON.stringify(files),
-    //         type: 'POST',
-    //         contentType: 'application/json; charset=UTF-8',
-    //         success: function (response) {
-    //           desktopCaptureApp.options.downloadSrc = response;
-    //           desktopCaptureApp.RootView.hideLoader();
-    //           desktopCaptureApp.showStep(4);
-    //         },
-    //         error: function (xhr, status, error) {
-    //           console.log(status, error);
-    //         }
-    //       });
-    //     });
-    //   } else {
-    //     $.ajax({
-    //       url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
-    //       data: JSON.stringify(files),
-    //       type: 'POST',
-    //       contentType: 'application/json; charset=UTF-8',
-    //       success: function (response) {
-    //         desktopCaptureApp.options.downloadSrc = response;
-    //         desktopCaptureApp.RootView.hideLoader();
-    //         desktopCaptureApp.showStep(4);
-    //       },
-    //       error: function (xhr, status, error) {
-    //         console.log(status, error);
-    //       }
-    //     });
-    //   }
-    //   //showLoader()
-    // }.bind(this));
   },
 });
