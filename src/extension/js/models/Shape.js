@@ -8,11 +8,39 @@ var Backbone = require('backbone-shim').Backbone,
   RangeBar = require('elessar');
 
 module.exports = Backbone.Model.extend({
-  initializeShape: function (options, callback) {
+  defaults: {
+    showing: false,
+  },
+
+  isShowing: function () {
+    return this.get('showing');
+  },
+
+  showShape: function () {
+          this.get('Shape').animate('opacity', 1,{
+        onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
+        duration: 250,
+    });
+  },
+
+  hideShape: function () {
+          this.get('Shape').animate('opacity', 0,{
+        onChange: s3controller.canvas.renderAll.bind(s3controller.canvas),
+        duration: 250,
+        onComplete: function() {
+          s3controller.canvas.remove(this.get('Shape'));
+        }.bind(this)
+    });
+  },
+
+  initializeShape: function (options) {
 
     this.on('shapeLoaded', function (shape) {
       this.set('Shape', shape);
-      callback(shape);
+      setTimeout(function () {
+        s3controller.updateShapes();
+        s3controller.canvas.renderAll();
+      }, 100);
     });
 
     switch (options.type) {
@@ -20,7 +48,8 @@ module.exports = Backbone.Model.extend({
       var shape = new fabric.Rect({
         fill: options.color,
         width: 100,
-        height: 100
+        height: 100,
+        opacity: 0
       });
 
       this.trigger('shapeLoaded', shape);
@@ -32,7 +61,8 @@ module.exports = Backbone.Model.extend({
         width: 125,
         height: 125,
         stroke: 'red',
-        strokeWidth: 5
+        strokeWidth: 5,
+        opacity: 0
       });
 
       this.trigger('shapeLoaded', shape);
@@ -41,7 +71,8 @@ module.exports = Backbone.Model.extend({
     case 'text':
       var shape = new fabric.IText("Hello world!", {
         fill: options.color,
-        fontSize: 20
+        fontSize: 20,
+        opacity: 0
       });
 
       this.trigger('shapeLoaded', shape);
@@ -52,7 +83,8 @@ module.exports = Backbone.Model.extend({
         var group = new fabric.PathGroup(objects, {
           width: 30,
           height: 40,
-          fill: 'red'
+          fill: 'red',
+        opacity: 0
         });
         this.trigger('shapeLoaded', group);
       }.bind(this));
@@ -62,7 +94,8 @@ module.exports = Backbone.Model.extend({
       var shape = new fabric.Triangle({
         fill: options.color,
         width: 100,
-        height: 100
+        height: 100,
+        opacity: 0
       });
 
       this.trigger('shapeLoaded', shape);
@@ -72,7 +105,8 @@ module.exports = Backbone.Model.extend({
 
   //currentTime and maxTime will be passed in when the models are created
   initializeRangeBar: function () {
-    this.set('RangeBar', new RangeBar({
+
+    var rangeBar = new RangeBar({
       maxRanges: 1,
       min: 0,
       max: this.get('maxTime'),
@@ -81,7 +115,14 @@ module.exports = Backbone.Model.extend({
           Math.min(this.get('currentTime') + 100, this.get('maxTime'))
         ]
       ]
-    }));
+    });
+
+    rangeBar.on('changing', function () {
+      s3controller.updateShapes();
+      s3controller.canvas.renderAll();
+    });
+
+    this.set('RangeBar', rangeBar);
   },
 
   getRangeBar: function () {

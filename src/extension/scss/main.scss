@@ -12,8 +12,12 @@
 * Modify individual directories load order in individual _all.scss files
 */
 
+html {
+	overflow-y: scroll;
+}
+
 body {
-background-image: url('../img/pixel_weave.png');
+	background-image: url('../img/pixel_weave.png');
 }
 
 video {
@@ -92,6 +96,7 @@ canvas {
 #hidden-video {
 	visibility: hidden;
 	pointer-events: none;
+	height: 1px;
 }
 
 .side-nav {
@@ -118,4 +123,55 @@ canvas {
 	span {
 		border: 1px solid;
 	}
+}
+
+#timeline {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.slider {
+	width: 640px !important;
+	margin: 0 auto !important;
+	height: 20px !important;
+	display: block !important;
+	
+	.tooltip {
+		display: none;
+	}
+}
+
+.elessar-rangebar {
+	display: block !important;
+	margin: 0 auto !important;
+	max-width: 655px !important;
+	height: 50px !important;
+	line-height: 50px !important;
+	background: none !important;
+}
+
+.elessar-range {
+	width: 0 !important;
+	z-index: 10 !important;
+	height: 100% !important;
+	max-height: 4px !important;
+	margin-top: 17px !important;
+	border-radius: 36px !important;
+	overflow: visible !important;
+}
+
+.elessar-handle {
+	background: #FFF !important;
+	width: 15px !important;
+	height: 15px !important;
+	// position: static !important;
+	top: -5px !important;
+	bottom: 0 !important;
+	border-radius: 15px !important;
+}
+
+.close-timeline {
+	float: right;
+	margin-bottom: 0 !important;
+	margin-top: 6.5px;
 }
