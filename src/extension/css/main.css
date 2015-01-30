@@ -152,3 +152,15 @@ canvas {
   visibility: hidden;
   pointer-events: none;
 }
+
+.side-nav li {
+  text-align: center;
+}
+.side-nav .btn-large {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.canvas-container {
+  margin: 15px auto;
+}
