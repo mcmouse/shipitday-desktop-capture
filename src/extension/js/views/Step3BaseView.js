@@ -47,7 +47,7 @@ module.exports = Marionette.LayoutView.extend({
   onShow: function () {
     this.trigger('show');
     this.ui.edit.sideNav();
-    this.ui.progressBar.slider();
+    this.ui.progressBar.bootstrapSlider();
     this.ui.toolTip.tooltip({
       delay: 50
     });

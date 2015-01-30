@@ -48,10 +48,13 @@ module.exports = Backbone.Model.extend({
       break;
 
     case 'arrow':
-      new fabric.Image.fromURL("/img/arrow.png", function (oImg) {
-        var shape = oImg;
-
-        this.trigger('shapeLoaded', shape);
+      new fabric.loadSVGFromURL("/img/arrow.svg", function (objects) {
+        var group = new fabric.PathGroup(objects, {
+          width: 30,
+          height: 40,
+          fill: 'red'
+        });
+        this.trigger('shapeLoaded', group);
       }.bind(this));
       break;
 
