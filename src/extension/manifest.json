@@ -1,6 +1,6 @@
 {
-  "name": "Desktop Capture Example",
-  "description": "Show desktop media picker UI",
+  "name": "VidSketch",
+  "description": "Captures your desktop and allows for easily adding video overlays",
   "version": "1",
   "manifest_version": 2,
   "icons": {
