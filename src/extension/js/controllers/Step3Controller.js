@@ -208,8 +208,8 @@ module.exports = Marionette.Object.extend({
     });
 
     this.recorder.startRecording();
-    this.video.play();
-    this.canvas.draw();
+    video.play();
+    this.draw();
     this.video.onended = function () {
       this.recorder.getDataURL(function (dataURL) {
 
