@@ -98,6 +98,12 @@ module.exports = Backbone.Model.extend({
         ]
       ]
     });
+
+    rangeBar.on('changing', function () {
+      s3controller.updateShapes();
+      s3controller.canvas.renderAll();
+    });
+
     this.set('RangeBar', rangeBar);
   },
 
