@@ -27,8 +27,12 @@ module.exports = Marionette.ItemView.extend({
     'click @ui.restartButton': 'restartVideo',
   },
 
+  onShow: function(){
+    $('.modal-trigger').leanModal();
+  },
+
   shareVideo: function () {
-    //this.trigger('submit');
+    $('.modal input').val(desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.downloadEndpoint + desktopCaptureApp.options.downloadSrc);
   },
 
   downloadVideo: function () {
