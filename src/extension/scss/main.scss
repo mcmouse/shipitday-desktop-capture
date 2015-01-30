@@ -47,6 +47,17 @@ margin: 0 auto;
 	text-align: center;
 }
 
+.overlay {
+	@include opacity(1);
+	@include transition(all 0.3s);
+	
+	&.hide {
+		@include opacity(0);
+	}
+}
+
+
+
 .record, .stop {
 	margin-left: 10px;
 	margin-right: 10px;

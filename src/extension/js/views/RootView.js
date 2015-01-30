@@ -24,6 +24,10 @@ module.exports = Marionette.LayoutView.extend({
 
   template: RootTemplate,
 
+  ui: {
+    overlay: '.overlay'
+  },
+
   regions: {
     step1: '#step-1',
     step2: '#step-2',
@@ -36,9 +40,17 @@ module.exports = Marionette.LayoutView.extend({
   showStep: function (step) {
     this.getRegion('step' + desktopCaptureApp.currentStep).empty();
 
+    // function fadeInOut(overlayObject) {
+    //   overlayObject.overlay.addClass('hide');
+    //   setTimeout(function(){
+    //     overlayObject.overlay.addClass('hide');
+    //   },3000);
+    // }
+
     switch(step) {
       case 1:
         var s1v = new Step1BaseView();
+        // fadeInOut(this.ui);
         this.getRegion('step' + step).show(
           s1v
           );
@@ -48,6 +60,7 @@ module.exports = Marionette.LayoutView.extend({
       break;
       case 2:
         var s2v = new Step2BaseView();
+        // fadeInOut(this.ui);
         this.getRegion('step' + step).show(
           s2v
           );
@@ -57,6 +70,7 @@ module.exports = Marionette.LayoutView.extend({
       break;
       case 3:
         var s3v = new Step3BaseView();
+        // fadeInOut(this.ui);
         this.getRegion('step' + step).show(
           s3v
           );
@@ -66,6 +80,7 @@ module.exports = Marionette.LayoutView.extend({
       break;
       case 4:
         var s4v = new Step4BaseView();
+        // fadeInOut(this.ui);
         this.getRegion('step' + step).show(
           s4v
           );
@@ -74,5 +89,7 @@ module.exports = Marionette.LayoutView.extend({
         });
       break;
     }
+
+    // this.ui.overlay.removeClass('hide');
   }
 });
