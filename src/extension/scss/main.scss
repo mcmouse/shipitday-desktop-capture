@@ -24,16 +24,14 @@ video {
 	margin: 25px auto;
 }
 
-header {
-background-color: #00BCD4  ;
-height: 100px;
+nav {
+	background-color: #00BCD4  ;
 
-img {
-width: 100%;
-max-width: 100px;
-float: left;
-margin: 20px;
-}
+	img {
+		width: 100%;
+		max-width: 75px;
+		margin: 10px;
+	}
 }
 
 .btn-floating.mic {
@@ -77,5 +75,9 @@ margin: 20px;
 	&.active {
 		display: block;
 		z-index: 5;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(transition(-50%, -50%));
 	}
 }

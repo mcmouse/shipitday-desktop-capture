@@ -6475,10 +6475,11 @@ span.badge.new:after {
 
 nav {
   color: #fff;
-  background-color: #ee6e73;
+  /*background-color: #ee6e73;*/
+  background-color: #00BCD4;
   width: 100%;
-  height: 56px;
-  line-height: 56px;
+  height: 100px;
+  line-height: 100px;
 }
 nav .nav-wrapper {
   position: relative;
@@ -6491,12 +6492,12 @@ nav a.button-collapse {
   float: left;
   position: relative;
   z-index: 1;
-  height: 56px;
+  height: 100px;
 }
 nav a.button-collapse i {
   font-size: 2.7rem;
-  height: 56px;
-  line-height: 56px;
+  height: 100px;
+  line-height: 100px;
 }
 nav .brand-logo {
   position: absolute;
@@ -6582,7 +6583,7 @@ nav .input-field label.active {
 
 .navbar-fixed {
   position: relative;
-  height: 56px;
+  height: 100px;
   z-index: 998;
 }
 .navbar-fixed nav {

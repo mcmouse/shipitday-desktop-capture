@@ -15,7 +15,8 @@ module.exports = Marionette.ItemView.extend({
     previewVideo: '#previewvideo',
     stop: '.stop',
     mic: '.mic',
-    micIcon: '.micIcon'
+    micIcon: '.micIcon',
+    toolTip: '.tooltipped'
   },
 
   events: {
@@ -23,6 +24,15 @@ module.exports = Marionette.ItemView.extend({
     'click @ui.stop': 'stopVideo',
     'click @ui.mic': 'activateAudio',
     'click @ui.audio': 'recordAudio',
+  },
+
+  onRender: function() {
+    $(window).load(function() {
+      console.log('test');
+      console.log(this.ui.toolTip.tooltip);
+      console.log('test');
+      this.ui.toolTip.tooltip({delay: 50});
+    });
   },
 
   recordVideo: function () {

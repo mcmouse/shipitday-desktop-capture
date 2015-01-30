@@ -75,15 +75,13 @@ video {
   margin: 25px auto;
 }
 
-header {
+nav {
   background-color: #00BCD4;
-  height: 100px;
 }
-header img {
+nav img {
   width: 100%;
-  max-width: 100px;
-  float: left;
-  margin: 20px;
+  max-width: 75px;
+  margin: 10px;
 }
 
 .btn-floating.mic {
@@ -134,4 +132,11 @@ header img {
 .preloader-wrapper.active {
   display: block;
   z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: transition(-50%, -50%);
+  -ms-transform: transition(-50%, -50%);
+  -webkit-transform: transition(-50%, -50%);
+  transform: transition(-50%, -50%);
 }
