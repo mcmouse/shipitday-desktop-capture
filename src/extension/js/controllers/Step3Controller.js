@@ -42,6 +42,7 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'show', this.setupEditor);
     this.listenTo(this.view, 'addShape', this.addShape);
     this.listenTo(this.view, 'playing', this.draw);
+    this.listenTo(this.view, 'mediaLoaded', this.draw);
     if (this.view._isShown) {
       this.setupEditor();
     }
@@ -90,7 +91,9 @@ module.exports = Marionette.Object.extend({
 
     this.canvas.add(this.video);
 
-    this.draw();
+    setTimeout(function () {
+      this.draw();
+    }.bind(this), 1000);
   },
 
   draw: function () {
@@ -98,5 +101,14 @@ module.exports = Marionette.Object.extend({
       requestAnimationFrame(s3controller.draw);
     }
     s3controller.canvas.renderAll();
+    s3controller.updateBarPosition();
+  },
+
+  updateBarPosition: function () {
+
+  },
+
+  seekVideo: function () {
+
   }
 });

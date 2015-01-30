@@ -30,7 +30,7 @@ module.exports = Backbone.Model.extend({
       max: this.get('maxTime'),
       values: [
         [this.get('currentTime'),
-          Math.min(this.get('currentTime') + 5000, this.get('maxTime'))
+          Math.min(this.get('currentTime') + 100, this.get('maxTime'))
         ]
       ]
     }));
