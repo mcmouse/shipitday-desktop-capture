@@ -22,7 +22,7 @@ module.exports = Marionette.LayoutView.extend({
   ui: {
     video: '#hidden-video',
     audio: '#hidden-audio',
-    addShape: '#add-shape',
+    addShape: '.mdi-image-add-to-photos',
     canvas: '#canvas',
     play: '.play-button',
     edit: '.edit-button',
@@ -32,9 +32,7 @@ module.exports = Marionette.LayoutView.extend({
     textAdder: '.mdi-editor-format-size',
     boxAdder: '.mdi-image-filter-none',
     arrowAdder: '.mdi-navigation-arrow-forward',
-    
-    acceptButton: '.accept-button',
-    restartButton: '.restart-button'
+    triangleAdder: '.mdi-image-details'
   },
 
   events: {
@@ -45,9 +43,7 @@ module.exports = Marionette.LayoutView.extend({
     'click @ui.textAdder': 'textAdder',
     'click @ui.boxAdder': 'boxAdder',
     'click @ui.arrowAdder': 'arrowAdder',
-    
-    'click @ui.acceptButton': 'submitVideo',
-    'click @ui.restartButton': 'restart',
+    'click @ui.triangleAdder': 'triangleAdder'
   },
 
   onShow: function () {
@@ -163,11 +159,8 @@ module.exports = Marionette.LayoutView.extend({
     this.trigger('addArrow');
   },
 
-  submitVideo: function () {
-    this.trigger('submit');
-  },
-  
-  restart: function() {
-    this.trigger('restart');
+  triangleAdder: function () {
+    this.trigger('addTriangle');
   }
+
 });
