@@ -21,12 +21,15 @@ module.exports = Marionette.LayoutView.extend({
 
   ui: {
     video: '#hidden-video',
+    audio: '#hidden-audio',
     addShape: '#add-shape',
     canvas: '#canvas',
+    play: '.play-button'
   },
 
   events: {
     'click @ui.addShape': 'addShape',
+    'click @ui.play': 'togglePlaying',
   },
 
   onShow: function () {
@@ -41,6 +44,53 @@ module.exports = Marionette.LayoutView.extend({
     this.getRegion("timeline").show(new ShapeCollectionView({
       collection: collection
     }));
+  },
+
+  isPlaying: function () {
+    var video = this.ui.video[0];
+    return (!video.paused && !video.ended && video.currentTime > 0);
+  },
+
+  togglePlaying: function () {
+    if (this.isPlaying()) {
+      this.ui.video[0].pause();
+      this.ui.play.text('Play');
+    } else {
+      this.ui.video[0].play();
+      this.ui.play.text('Pause');
+    }
+  },
+
+  setVideoSrc: function (src) {
+    var video = this.ui.video[0];
+    if (typeof video === "object") {
+      video.src = src;
+      this.trigger('mediaLoaded', 'video');
+    }
+  },
+
+  setAudioSrc: function (src) {
+    var audio = this.ui.audio[0];
+    if (typeof audio === "object") {
+      audio.src = src;
+      this.trigger('mediaLoaded', 'audio');
+    }
+  },
+
+  bindPlayEvents: function () {
+    this.ui.video[0].onplay = function () {
+      this.ui.audio[0].play();
+    }.bind(this);
+
+    this.ui.video[0].onpause = function () {
+      this.ui.audio[0].pause();
+    }.bind(this);
+  },
+
+  bindEndEvent: function () {
+    this.ui.video[0].onended = function () {
+      this.ui.play.text('Play');
+    };
   },
 
   //Returns current time in MS

@@ -55,62 +55,64 @@ module.exports = Marionette.Object.extend({
   },
 
   submitVideo: function () {
-    var files = {};
 
-    desktopCaptureApp.RootView.showLoader();
+    desktopCaptureApp.showStep(3);
+    // var files = {};
 
-    desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
+    // desktopCaptureApp.RootView.showLoader();
 
-      files.video = {
-        name: Utilities.getRandomName() + '.webm',
-        type: 'video/webm',
-        contents: dataURL,
-      };
+    // desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
 
-      console.log(files);
+    //   files.video = {
+    //     name: Utilities.getRandomName() + '.webm',
+    //     type: 'video/webm',
+    //     contents: dataURL,
+    //   };
 
-      if (this.hasAudio) {
-        desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
-          files.audio = {
-            name: Utilities.getRandomName() + '.wav',
-            type: 'audio/wav',
-            contents: dataURL,
-          };
+    //   console.log(files);
 
-          console.log(files);
+    //   if (this.hasAudio) {
+    //     desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
+    //       files.audio = {
+    //         name: Utilities.getRandomName() + '.wav',
+    //         type: 'audio/wav',
+    //         contents: dataURL,
+    //       };
 
-          $.ajax({
-            url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
-            data: JSON.stringify(files),
-            type: 'POST',
-            contentType: 'application/json; charset=UTF-8',
-            success: function (response) {
-              desktopCaptureApp.options.downloadSrc = response;
-              desktopCaptureApp.RootView.hideLoader();
-              desktopCaptureApp.showStep(4);
-            },
-            error: function (xhr, status, error) {
-              console.log(status, error);
-            }
-          });
-        });
-      } else {
-        $.ajax({
-          url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
-          data: JSON.stringify(files),
-          type: 'POST',
-          contentType: 'application/json; charset=UTF-8',
-          success: function (response) {
-            desktopCaptureApp.options.downloadSrc = response;
-            desktopCaptureApp.RootView.hideLoader();
-            desktopCaptureApp.showStep(4);
-          },
-          error: function (xhr, status, error) {
-            console.log(status, error);
-          }
-        });
-      }
-      //showLoader()
-    }.bind(this));
+    //       console.log(files);
+
+    //       $.ajax({
+    //         url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+    //         data: JSON.stringify(files),
+    //         type: 'POST',
+    //         contentType: 'application/json; charset=UTF-8',
+    //         success: function (response) {
+    //           desktopCaptureApp.options.downloadSrc = response;
+    //           desktopCaptureApp.RootView.hideLoader();
+    //           desktopCaptureApp.showStep(4);
+    //         },
+    //         error: function (xhr, status, error) {
+    //           console.log(status, error);
+    //         }
+    //       });
+    //     });
+    //   } else {
+    //     $.ajax({
+    //       url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+    //       data: JSON.stringify(files),
+    //       type: 'POST',
+    //       contentType: 'application/json; charset=UTF-8',
+    //       success: function (response) {
+    //         desktopCaptureApp.options.downloadSrc = response;
+    //         desktopCaptureApp.RootView.hideLoader();
+    //         desktopCaptureApp.showStep(4);
+    //       },
+    //       error: function (xhr, status, error) {
+    //         console.log(status, error);
+    //       }
+    //     });
+    //   }
+    //   //showLoader()
+    // }.bind(this));
   },
 });

@@ -16,6 +16,24 @@ module.exports = Marionette.Object.extend({
     this.view = options.view;
     this.collection = new Backbone.Collection();
     this.setupEvents();
+
+    this.recorder = desktopCaptureApp.models.Video.get('recorder');
+    this.audioRecorder = desktopCaptureApp.models.Audio.get('recorder');
+
+    this.recorder.getDataURL(function (url) {
+      this.view.setVideoSrc(url);
+      this.view.bindEndEvent();
+    }.bind(this));
+
+    this.hasAudio = false;
+
+    if (this.audioRecorder) {
+      this.hasAudio = true;
+      this.audioRecorder.getDataURL(function (url) {
+        this.view.setAudioSrc(url);
+        this.view.bindPlayEvents();
+      }.bind(this));
+    }
   },
 
   setupEvents: function () {
