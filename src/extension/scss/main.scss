@@ -17,11 +17,11 @@ background-image: url('../img/pixel_weave.png');
 }
 
 video {
-width: 640px;
-height: 480px;
-background: #000;
-display: block !important;
-margin: 25px auto;
+	width: 640px;
+	height: 480px;
+	background: #000;
+	display: block !important;
+	margin: 25px auto;
 }
 
 header {
@@ -54,6 +54,10 @@ margin: 0 auto;
 	&.hide {
 		@include opacity(0);
 	}
+}
+
+.stop {
+	visibility: hidden;
 }
 
 

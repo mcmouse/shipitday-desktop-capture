@@ -1,4 +1,4 @@
 $(function(){
-
+	$('.modal-trigger').leanModal();
 
 });
