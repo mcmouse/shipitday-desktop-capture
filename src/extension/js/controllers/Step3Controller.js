@@ -55,7 +55,7 @@ module.exports = Marionette.Object.extend({
     });
 
     this.canvas.add(newShape.initializeShape({
-      type: 'square',
+      type: 'arrow',
       color: 'red',
     }));
 
