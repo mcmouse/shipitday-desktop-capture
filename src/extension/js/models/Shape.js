@@ -9,16 +9,50 @@ var Backbone = require('backbone-shim').Backbone,
 
 module.exports = Backbone.Model.extend({
   initializeShape: function (options) {
-    var shape;
-    if (options.type === 'square') {
-      shape = new fabric.Rect({
-        fill: options.color,
-        width: 100,
-        height: 100
-      });
-      this.set('Shape', shape);
+    var shape = 0;
+
+    switch(options.type) {
+    	case 'square':
+	    	shape = new fabric.Rect({
+	        fill: options.color,
+	        width: 100,
+	        height: 100
+	      });
+    	break;
+
+    	case 'box':
+	    	shape = new fabric.Rect({
+			  fill: 'rgba(0,0,0,0)',
+			  width: 125,
+			  height: 125,
+			  stroke: 'red',
+			  strokeWidth: 5
+			});
+    	break;
+
+    	case 'text':
+    		shape = new fabric.IText("Hello world!",{
+        	fill: options.color,
+        	fontSize: 20
+      		});
+    	break;
+
+    	case 'arrow':
+    		new fabric.Image.fromURL("../img/arrow.png", function(oImg) {
+				  shape = oImg;
+				}.bind(this));
+    	break;
+
+    	case 'triangle':
+    		shape = new fabric.Triangle({
+    			fill: options.color,
+    			width: 100,
+    			height: 100
+    		});
+    	break;
     }
 
+    set('Shape', this.shape);
     return shape;
   },
 
@@ -30,7 +64,7 @@ module.exports = Backbone.Model.extend({
       max: this.get('maxTime'),
       values: [
         [this.get('currentTime'),
-          Math.min(this.get('currentTime') + 5000, this.get('maxTime'))
+          Math.min(this.get('currentTime') + 100, this.get('maxTime'))
         ]
       ]
     }));

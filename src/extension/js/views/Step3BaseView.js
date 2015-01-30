@@ -38,7 +38,9 @@ module.exports = Marionette.LayoutView.extend({
   onShow: function () {
     this.trigger('show');
     this.ui.edit.sideNav();
-    this.ui.toolTip.tooltip({delay: 50});
+    this.ui.toolTip.tooltip({
+      delay: 50
+    });
   },
 
   addShape: function () {
@@ -101,6 +103,7 @@ module.exports = Marionette.LayoutView.extend({
   bindEndEvent: function () {
     this.ui.video[0].onended = function () {
       this.ui.play.text('Play');
+      this.ui.video[0].currentTime = 0;
     }.bind(this);
   },
 
