@@ -120,8 +120,21 @@ canvas {
 	}
 }
 
-.slider .tooltip {
-	display: none;
+.slider {
+	width: 640px !important;
+	margin: 0 auto !important;
+	height: 20px !important;
+	display: block !important;
+	
+	.tooltip {
+		display: none;
+	}
+}
+
+.elessar-rangebar {
+	display: block !important;
+	margin: 0 auto !important;
+	max-width: 655px !important;
 }
 
 .elessar-range {
