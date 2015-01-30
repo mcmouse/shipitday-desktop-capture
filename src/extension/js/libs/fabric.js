@@ -3113,9 +3113,9 @@ fabric.Collection = {
       }
       return canvasEl
     },
-    // createImage: function () {
-    //   return fabric.isLikelyNode ? new(require("canvas").Image) : fabric.document.createElement("img")
-    // },
+    createImage: function () {
+      return fabric.document.createElement("img")
+    },
     createAccessors: function (klass) {
       var proto = klass.prototype;
       for (var i = proto.stateProperties.length; i--;) {
