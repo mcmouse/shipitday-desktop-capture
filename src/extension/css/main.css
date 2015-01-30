@@ -174,3 +174,26 @@ canvas {
 #progress-bar span {
   border: 1px solid;
 }
+
+.slider .tooltip {
+  display: none;
+}
+
+.elessar-range {
+  width: 0 !important;
+  z-index: 10 !important;
+  height: 100% !important;
+  max-height: 4px !important;
+  margin-top: 10px !important;
+  border-radius: 36px !important;
+  overflow: visible !important;
+}
+
+.elessar-handle {
+  background: #FFF !important;
+  width: 15px !important;
+  height: 15px !important;
+  top: -5px !important;
+  bottom: 0 !important;
+  border-radius: 15px !important;
+}
