@@ -35,6 +35,14 @@ module.exports = Marionette.ItemView.extend({
   	video.play();
   },
 
+  getVideoSize: function(src) {
+  	var video = this.ui.previewVideo;
+  	return {
+  		width: video.width(),
+  		height: video.height()
+  	};
+  },
+
   toggleControls:function(){
   	this.ui.previewVideo[0].controls = true;
   }
