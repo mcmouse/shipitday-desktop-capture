@@ -14,6 +14,7 @@
 
 body {
 background-image: url('../img/pixel_weave.png');
+overflow-y: scroll;
 }
 
 video {
@@ -120,6 +121,11 @@ canvas {
 	}
 }
 
+#timeline {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
 .slider {
 	width: 640px !important;
 	margin: 0 auto !important;
@@ -135,6 +141,9 @@ canvas {
 	display: block !important;
 	margin: 0 auto !important;
 	max-width: 655px !important;
+	height: 37px !important;
+	line-height: 37px !important;
+	background: none !important;
 }
 
 .elessar-range {
@@ -142,7 +151,7 @@ canvas {
 	z-index: 10 !important;
 	height: 100% !important;
 	max-height: 4px !important;
-	margin-top: 10px !important;
+	margin-top: 17px !important;
 	border-radius: 36px !important;
 	overflow: visible !important;
 }
@@ -155,4 +164,8 @@ canvas {
 	top: -5px !important;
 	bottom: 0 !important;
 	border-radius: 15px !important;
+}
+
+.close-timeline {
+	float: right;
 }
