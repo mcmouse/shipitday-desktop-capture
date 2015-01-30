@@ -184,4 +184,84 @@ module.exports = Marionette.Object.extend({
       this.slider.bootstrapSlider('setValue', this.view.getCurrentTime(), false);
     }
   },
+
+  submitVideo: function () {
+
+    var files = {};
+
+    desktopCaptureApp.RootView.showLoader();
+
+    var video = this.view.getVideo();
+    video.currentTime = 0;
+    this.recorder = RecordRTC(this.view.ui.canvas[0], {
+      type: "canvas",
+      canvas: {
+        width: 1280,
+        height: 720
+      },
+      video: {
+        width: 1280,
+        height: 720
+      }
+    });
+
+    this.recorder.startRecording();
+    this.video.play();
+    this.canvas.draw();
+    this.video.onended = function () {
+      this.recorder.getDataURL(function (dataURL) {
+
+        files.video = {
+          name: Utilities.getRandomName() + '.webm',
+          type: 'video/webm',
+          contents: dataURL,
+        };
+
+        console.log(files);
+
+        if (this.hasAudio) {
+          desktopCaptureApp.models.Audio.get('recorder').getDataURL(function (dataURL) {
+            files.audio = {
+              name: Utilities.getRandomName() + '.wav',
+              type: 'audio/wav',
+              contents: dataURL,
+            };
+
+            console.log(files);
+
+            $.ajax({
+              url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+              data: JSON.stringify(files),
+              type: 'POST',
+              contentType: 'application/json; charset=UTF-8',
+              success: function (response) {
+                desktopCaptureApp.options.downloadSrc = response;
+                desktopCaptureApp.RootView.hideLoader();
+                desktopCaptureApp.showStep(4);
+              },
+              error: function (xhr, status, error) {
+                console.log(status, error);
+              }
+            });
+          });
+        } else {
+          $.ajax({
+            url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
+            data: JSON.stringify(files),
+            type: 'POST',
+            contentType: 'application/json; charset=UTF-8',
+            success: function (response) {
+              desktopCaptureApp.options.downloadSrc = response;
+              desktopCaptureApp.RootView.hideLoader();
+              desktopCaptureApp.showStep(4);
+            },
+            error: function (xhr, status, error) {
+              console.log(status, error);
+            }
+          });
+        }
+        //showLoader()
+      }.bind(this));
+    }.bind(this);
+  },
 });
