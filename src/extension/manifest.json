@@ -15,6 +15,7 @@
   "permissions": [
     "desktopCapture",
     "http://ec2-54-200-174-110.us-west-2.compute.amazonaws.com:3100/",
-    "http://localhost:3200/"
+    "http://localhost:3200/",
+    "downloads"
   ]
 }
