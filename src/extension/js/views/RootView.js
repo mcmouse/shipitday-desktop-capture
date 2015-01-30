@@ -90,7 +90,7 @@ module.exports = Marionette.LayoutView.extend({
   },
 
   fadeOut: function (stepToShow) {
-    this.ui.overlay.addClass('hide');
+    this.addOverlay();
     setTimeout(function (stepToShow) {
       this.getRegion('step' + desktopCaptureApp.currentStep).empty();
       this.setStep(stepToShow);
@@ -98,15 +98,20 @@ module.exports = Marionette.LayoutView.extend({
     }.bind(this), 300, stepToShow);
   },
 
+  addOverlay: function () {
+    this.ui.overlay.addClass('hide');
+  },
+
   fadeIn: function () {
     this.ui.overlay.removeClass('hide');
   },
 
-  showLoader: function() {
+  showLoader: function () {
+    this.addOverlay();
     this.ui.preloader.addClass('active');
   },
 
-  hideLoader: function() {
-    this.ui.preloader.removeCass('active');
+  hideLoader: function () {
+    this.ui.preloader.removeClass('active');
   }
 });
