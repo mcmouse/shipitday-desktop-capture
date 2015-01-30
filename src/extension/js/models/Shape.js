@@ -60,7 +60,7 @@ module.exports = Backbone.Model.extend({
         fill: 'rgba(0,0,0,0)',
         width: 125,
         height: 125,
-        stroke: 'red',
+        stroke: options.color,
         strokeWidth: 5,
         opacity: 0
       });
@@ -83,7 +83,7 @@ module.exports = Backbone.Model.extend({
         var group = new fabric.PathGroup(objects, {
           width: 30,
           height: 40,
-          fill: 'red',
+          fill: options.color,
           opacity: 0
         });
         this.trigger('shapeLoaded', group);

@@ -58,20 +58,6 @@ module.exports = Marionette.Object.extend({
     }
   },
 
-  addShape: function () {
-    var newShape = new Shape({
-      currentTime: this.view.getCurrentTime(),
-      maxTime: this.view.getMaxTime()
-    });
-
-    newShape.initializeShape({
-      type: 'square',
-      color: 'red',
-    });
-
-    this.collection.add(newShape);
-  },
-
   addText: function () {
     var newShape = new Shape({
       currentTime: this.view.getCurrentTime(),
@@ -80,7 +66,7 @@ module.exports = Marionette.Object.extend({
 
     newShape.initializeShape({
       type: 'text',
-      color: 'red',
+      color: this.view.getColor(),
     });
 
     this.collection.add(newShape);
@@ -94,7 +80,7 @@ module.exports = Marionette.Object.extend({
 
     newShape.initializeShape({
       type: 'box',
-      color: 'red',
+      color: this.view.getColor(),
     });
 
     this.collection.add(newShape);
@@ -108,21 +94,7 @@ module.exports = Marionette.Object.extend({
 
     newShape.initializeShape({
       type: 'arrow',
-      color: 'red',
-    });
-
-    this.collection.add(newShape);
-  },
-
-  addTriangle: function () {
-    var newShape = new Shape({
-      currentTime: this.view.getCurrentTime(),
-      maxTime: this.view.getMaxTime()
-    });
-
-    newShape.initializeShape({
-      type: 'triangle',
-      color: 'red',
+      color: this.view.getColor(),
     });
 
     this.collection.add(newShape);

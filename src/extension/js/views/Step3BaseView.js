@@ -7,7 +7,7 @@
 var Marionette = require('backbone-shim').Marionette,
   Step3Template = require('templates/Step3Template.html'),
   ShapeCollectionView = require('views/ShapeCollectionView');
-  
+
 var playIcon = "<i class='mdi-av-skip-next right'></i>";
 
 module.exports = Marionette.LayoutView.extend({
@@ -34,7 +34,8 @@ module.exports = Marionette.LayoutView.extend({
     textAdder: '.mdi-editor-format-size',
     boxAdder: '.mdi-image-filter-none',
     arrowAdder: '.mdi-navigation-arrow-forward',
-    triangleAdder: '.mdi-image-details',
+    colorPicker: '#color-picker',
+    colorPickerTarget: '.mdi-editor-format-color-fill',
 
     acceptButton: '.accept-button',
     restartButton: '.restart-button'
@@ -48,7 +49,7 @@ module.exports = Marionette.LayoutView.extend({
     'click @ui.textAdder': 'textAdder',
     'click @ui.boxAdder': 'boxAdder',
     'click @ui.arrowAdder': 'arrowAdder',
-    'click @ui.triangleAdder': 'triangleAdder',
+    'click @ui.colorPickerTarget': 'colorPicker',
 
     'click @ui.acceptButton': 'submitVideo',
     'click @ui.restartButton': 'restart',
@@ -57,13 +58,24 @@ module.exports = Marionette.LayoutView.extend({
   onShow: function () {
     this.trigger('show');
     this.ui.edit.sideNav();
+    this.ui.colorPicker.spectrum({
+      showInitial: false,
+      color: 'red',
+    });
     this.ui.toolTip.tooltip({
       delay: 50
     });
   },
 
-  addShape: function () {
-    this.trigger('addShape');
+  getColor: function () {
+    var color = this.ui.colorPicker.spectrum('get');
+    return '#' + color.toHex();
+  },
+
+  colorPicker: function (evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.ui.colorPicker.spectrum('show');
   },
 
   initializeCollection: function (collection) {
@@ -165,10 +177,6 @@ module.exports = Marionette.LayoutView.extend({
 
   arrowAdder: function () {
     this.trigger('addArrow');
-  },
-
-  triangleAdder: function () {
-    this.trigger('addTriangle');
   },
 
   submitVideo: function () {
