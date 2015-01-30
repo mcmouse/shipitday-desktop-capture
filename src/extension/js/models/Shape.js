@@ -8,11 +8,26 @@ var Backbone = require('backbone-shim').Backbone,
   RangeBar = require('elessar');
 
 module.exports = Backbone.Model.extend({
-  initializeShape: function (options, callback) {
+  defaults: {
+    showing: false,
+  },
+
+  isShowing: function () {
+    return this.get('showing');
+  },
+
+  showShape: function () {
+
+  },
+
+  hideShape: function () {
+
+  },
+
+  initializeShape: function (options) {
 
     this.on('shapeLoaded', function (shape) {
       this.set('Shape', shape);
-      callback(shape);
     });
 
     switch (options.type) {
@@ -72,7 +87,8 @@ module.exports = Backbone.Model.extend({
 
   //currentTime and maxTime will be passed in when the models are created
   initializeRangeBar: function () {
-    this.set('RangeBar', new RangeBar({
+
+    var rangeBar = new RangeBar({
       maxRanges: 1,
       min: 0,
       max: this.get('maxTime'),
@@ -81,7 +97,8 @@ module.exports = Backbone.Model.extend({
           Math.min(this.get('currentTime') + 100, this.get('maxTime'))
         ]
       ]
-    }));
+    });
+    this.set('RangeBar', rangeBar);
   },
 
   getRangeBar: function () {

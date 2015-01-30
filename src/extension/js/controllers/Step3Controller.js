@@ -63,7 +63,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'square',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -77,7 +77,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'text',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -91,7 +91,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'box',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -105,13 +105,11 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'arrow',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
-  },
-
-  addShapeToCanvas: function (shape) {
-    this.canvas.add(shape);
+    this.updateShapes();
+    this.draw();
   },
 
   setupEditor: function () {
@@ -150,13 +148,29 @@ module.exports = Marionette.Object.extend({
     if (s3controller.view.isPlaying()) {
       requestAnimationFrame(s3controller.draw);
     }
-    s3controller.canvas.renderAll();
+    s3controller.updateShapes();
     s3controller.updateBarPosition();
+    s3controller.canvas.renderAll();
+  },
+
+  updateShapes: function () {
+    var currentTime = this.view.getCurrentTime();
+    this.collection.each(function (model) {
+      var bounds = model.getBounds();
+      var showing = model.isShowing();
+      if (bounds.start < currentTime && bounds.end > currentTime && !showing) {
+        s3controller.canvas.add(model.get('Shape'));
+        model.set('showing', true);
+      } else if ((bounds.start > currentTime && showing) || (bounds.end < currentTime && showing)) {
+        s3controller.canvas.remove(model.get('Shape'));
+        model.set('showing', false);
+      }
+    });
   },
 
   setupSlider: function () {
     this.slider = this.view.getSlider();
-    this.slider.on('slideStop', function (time) {
+    this.slider.on('slide', function (time) {
       var video = this.view.getVideo();
       video.currentTime = time.value / 1000;
       video.pause();
