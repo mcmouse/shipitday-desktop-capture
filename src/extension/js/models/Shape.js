@@ -8,52 +8,62 @@ var Backbone = require('backbone-shim').Backbone,
   RangeBar = require('elessar');
 
 module.exports = Backbone.Model.extend({
-  initializeShape: function (options) {
-    var shape = 0;
+  initializeShape: function (options, callback) {
 
-    switch(options.type) {
-    	case 'square':
-	    	shape = new fabric.Rect({
-	        fill: options.color,
-	        width: 100,
-	        height: 100
-	      });
-    	break;
+    this.on('shapeLoaded', function (shape) {
+      callback(shape);
+    });
 
-    	case 'box':
-	    	shape = new fabric.Rect({
-			  fill: 'rgba(0,0,0,0)',
-			  width: 125,
-			  height: 125,
-			  stroke: 'red',
-			  strokeWidth: 5
-			});
-    	break;
+    switch (options.type) {
+    case 'square':
+      shape = new fabric.Rect({
+        fill: options.color,
+        width: 100,
+        height: 100
+      });
 
-    	case 'text':
-    		shape = new fabric.IText("Hello world!",{
-        	fill: options.color,
-        	fontSize: 20
-      		});
-    	break;
+      this.trigger('shapeLoaded', shape);
+      break;
 
-    	case 'arrow':
-    		new fabric.Image.fromURL("../img/arrow.png", function(oImg) {
-				  shape = oImg;
-				}.bind(this));
-    	break;
+    case 'box':
+      shape = new fabric.Rect({
+        fill: 'rgba(0,0,0,0)',
+        width: 125,
+        height: 125,
+        stroke: 'red',
+        strokeWidth: 5
+      });
 
-    	case 'triangle':
-    		shape = new fabric.Triangle({
-    			fill: options.color,
-    			width: 100,
-    			height: 100
-    		});
-    	break;
+      this.trigger('shapeLoaded', shape);
+      break;
+
+    case 'text':
+      shape = new fabric.IText("Hello world!", {
+        fill: options.color,
+        fontSize: 20
+      });
+
+      this.trigger('shapeLoaded', shape);
+      break;
+
+    case 'arrow':
+      new fabric.Image.fromURL("/img/arrow.png", function (oImg) {
+        var shape = oImg;
+
+        this.trigger('shapeLoaded', shape);
+      }.bind(this));
+      break;
+
+    case 'triangle':
+      shape = new fabric.Triangle({
+        fill: options.color,
+        width: 100,
+        height: 100
+      });
+
+      this.trigger('shapeLoaded', shape);
+      break;
     }
-
-    set('Shape', this.shape);
-    return shape;
   },
 
   //currentTime and maxTime will be passed in when the models are created

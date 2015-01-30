@@ -54,14 +54,16 @@ module.exports = Marionette.Object.extend({
       maxTime: this.view.getMaxTime()
     });
 
-    this.canvas.add(newShape.initializeShape({
+    newShape.initializeShape({
       type: 'arrow',
       color: 'red',
-    }));
+    }, this.addShapeToCanvas.bind(this));
 
-    this.collection.add(
-      newShape
-    );
+    this.collection.add(newShape);
+  },
+
+  addShapeToCanvas: function (shape) {
+    this.canvas.add(shape);
   },
 
   setupEditor: function () {
