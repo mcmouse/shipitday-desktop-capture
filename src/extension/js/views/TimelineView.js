@@ -13,7 +13,7 @@ module.exports = Marionette.ItemView.extend({
   	classes: "rangeBarWrapper"
   },
   onShow: function() {
-  	this.model.initializeRangeBar();
+    this.model.initializeRangeBar();
   	this.$ButtonClick = $("<button class='close-timeline btn-floating btn waves-effect waves-light red'><i class='mdi-navigation-close'></i></button>")
   	this.$el.append(this.$ButtonClick.get(0));
   	this.$ButtonClick.click(function(){
