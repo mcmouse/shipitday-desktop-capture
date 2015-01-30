@@ -144,4 +144,11 @@ nav img {
 canvas {
   width: 640px;
   height: 480px;
+  display: block;
+  margin: 0 auto;
+}
+
+#hidden-video {
+  visibility: hidden;
+  pointer-events: none;
 }
