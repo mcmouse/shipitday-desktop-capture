@@ -11,6 +11,7 @@ module.exports = Backbone.Model.extend({
   initializeShape: function (options, callback) {
 
     this.on('shapeLoaded', function (shape) {
+      this.set('Shape', shape);
       callback(shape);
     });
 
