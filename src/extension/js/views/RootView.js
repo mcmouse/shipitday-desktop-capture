@@ -38,58 +38,66 @@ module.exports = Marionette.LayoutView.extend({
   initialize: function () {},
 
   showStep: function (step) {
-    this.getRegion('step' + desktopCaptureApp.currentStep).empty();
+    this.fadeOut(step);
+  },
 
-    // function fadeInOut(overlayObject) {
-    //   overlayObject.overlay.addClass('hide');
-    //   setTimeout(function(){
-    //     overlayObject.overlay.addClass('hide');
-    //   },3000);
-    // }
-
-    switch(step) {
-      case 1:
-        var s1v = new Step1BaseView();
-        // fadeInOut(this.ui);
-        this.getRegion('step' + step).show(
-          s1v
-          );
-        new Step1Controller({
-          view: s1v
-        });
+  setStep: function (step) {
+    switch (step) {
+    case 1:
+      var s1v = new Step1BaseView();
+      // fadeInOut(this.ui);
+      this.getRegion('step' + step).show(
+        s1v
+      );
+      new Step1Controller({
+        view: s1v
+      });
       break;
-      case 2:
-        var s2v = new Step2BaseView();
-        // fadeInOut(this.ui);
-        this.getRegion('step' + step).show(
-          s2v
-          );
-        new Step2Controller({
-          view: s2v
-        });
+    case 2:
+      var s2v = new Step2BaseView();
+      // fadeInOut(this.ui);
+      this.getRegion('step' + step).show(
+        s2v
+      );
+      new Step2Controller({
+        view: s2v
+      });
       break;
-      case 3:
-        var s3v = new Step3BaseView();
-        // fadeInOut(this.ui);
-        this.getRegion('step' + step).show(
-          s3v
-          );
-        new Step3Controller({
-          view: s3v
-        });
+    case 3:
+      var s3v = new Step3BaseView();
+      // fadeInOut(this.ui);
+      this.getRegion('step' + step).show(
+        s3v
+      );
+      new Step3Controller({
+        view: s3v
+      });
       break;
-      case 4:
-        var s4v = new Step4BaseView();
-        // fadeInOut(this.ui);
-        this.getRegion('step' + step).show(
-          s4v
-          );
-        new Step4Controller({
-          view: s4v
-        });
+    case 4:
+      var s4v = new Step4BaseView();
+      // fadeInOut(this.ui);
+      this.getRegion('step' + step).show(
+        s4v
+      );
+      new Step4Controller({
+        view: s4v
+      });
       break;
     }
 
-    // this.ui.overlay.removeClass('hide');
+    desktopCaptureApp.currentStep = step;
+  },
+
+  fadeOut: function (stepToShow) {
+    this.ui.overlay.addClass('hide');
+    setTimeout(function (stepToShow) {
+      this.getRegion('step' + desktopCaptureApp.currentStep).empty();
+      this.setStep(stepToShow);
+      this.fadeIn();
+    }.bind(this), 300, stepToShow);
+  },
+
+  fadeIn: function () {
+    this.ui.overlay.removeClass('hide');
   }
 });

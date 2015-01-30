@@ -29,7 +29,6 @@ module.exports = Marionette.Application.extend({
   //This function is global
   showStep: function (step) {
     this.RootView.showStep(step);
-    this.currentStep = step;
   },
 
   restart: function () {
@@ -45,7 +44,7 @@ module.exports = Marionette.Application.extend({
 
   setupOptions: function () {
     this.options = {
-      serverRoot: 'http://ec2-54-200-174-110.us-west-2.compute.amazonaws.com:3100/',
+      serverRoot: 'http://localhost:3200/',
       uploadEndpoint: 'upload',
       downloadEndpoint: 'data/'
     };
