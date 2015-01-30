@@ -35,8 +35,10 @@ module.exports = Marionette.ItemView.extend({
 
   setVideoSrc: function (src) {
     var video = this.ui.video[0];
-    video.src = src;
-    video.play();
+    if (typeof video === "object") {
+      video.src = src;
+      video.play();
+    }
   },
 
   toggleControls: function () {

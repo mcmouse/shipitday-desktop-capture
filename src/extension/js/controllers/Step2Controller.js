@@ -16,6 +16,7 @@ module.exports = Marionette.Object.extend({
     this.recorder = desktopCaptureApp.models.Video.get('recorder');
     this.setupEvents();
 
+    var triggered = false;
     this.recorder.getDataURL(function (url) {
       this.view.setVideoSrc(url);
     }.bind(this));
