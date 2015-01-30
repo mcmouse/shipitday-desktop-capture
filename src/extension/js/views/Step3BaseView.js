@@ -26,7 +26,8 @@ module.exports = Marionette.LayoutView.extend({
     canvas: '#canvas',
     play: '.play-button',
     edit: '.edit-button',
-    toolTip: '.tooltipped'
+    toolTip: '.tooltipped',
+    progressBar: '#progress-bar'
   },
 
   events: {
@@ -38,6 +39,7 @@ module.exports = Marionette.LayoutView.extend({
   onShow: function () {
     this.trigger('show');
     this.ui.edit.sideNav();
+    this.ui.progressBar.slider();
     this.ui.toolTip.tooltip({
       delay: 50
     });
