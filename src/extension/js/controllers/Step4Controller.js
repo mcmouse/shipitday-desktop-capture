@@ -1,4 +1,4 @@
-/* globals desktopCaptureApp */
+/* globals desktopCaptureApp, chrome */
 /* jshint node:true */
 
 'use strict';
@@ -12,15 +12,25 @@ var Marionette = require('backbone-shim').Marionette;
 module.exports = Marionette.Object.extend({
   initialize: function (options) {
     this.view = options.view;
-    var serverRoot = desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.downloadEndpoint + desktopCaptureApp.options.downloadSrc;
-    this.view.setVideoSrc(serverRoot);
+    this.downloadLink = desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.downloadEndpoint + desktopCaptureApp.options.downloadSrc;
+    this.view.setVideoSrc(this.downloadLink);
     this.setupEvents();
   },
 
   setupEvents: function () {
-    this.listenTo(this.view, 'record', this.recordVideo);
+    this.listenTo(this.view, 'restart', desktopCaptureApp.restart.bind(desktopCaptureApp));
+    this.listenTo(this.view, 'share', this.shareVideo);
+    this.listenTo(this.view, 'download', this.downloadVideo);
   },
 
-  recordVideo: function () {
+  shareVideo: function () {
+
   },
+
+  downloadVideo: function () {
+    chrome.downloads.download({
+      url: this.downloadLink,
+    });
+  }
+
 });

@@ -32,11 +32,11 @@ module.exports = Marionette.ItemView.extend({
   },
 
   downloadVideo: function () {
-    //this.trigger('submit');
+    this.trigger('download');
   },
 
   restartVideo: function () {
-    //this.trigger('submit');
+    this.trigger('restart');
   },
 
   setVideoSrc: function (src) {
