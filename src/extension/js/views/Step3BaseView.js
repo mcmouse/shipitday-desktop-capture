@@ -20,19 +20,37 @@ module.exports = Marionette.LayoutView.extend({
   },
 
   ui: {
-    video: '#review-video',
+    video: '#hidden-video',
+    addShape: '#add-shape',
+    canvas: '#canvas',
   },
 
   events: {
-    'click @ui.shareButton': 'shareVideo',
+    'click @ui.addShape': 'addShape',
   },
 
-  onShow: function() {
-    this.getRegion("timeline").show(new ShapeCollectionView())
+  onShow: function () {
+    this.trigger('show');
   },
 
-  shareVideo: function () {
-    $('.modal input').val(desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.downloadEndpoint + desktopCaptureApp.options.downloadSrc);
+  addShape: function () {
+    this.trigger('addShape');
   },
+
+  initializeCollection: function (collection) {
+    this.getRegion("timeline").show(new ShapeCollectionView({
+      collection: collection
+    }));
+  },
+
+  //Returns current time in MS
+  getCurrentTime: function () {
+    return this.ui.video[0].currentTime * 1000;
+  },
+
+  //Returns video duration in MS
+  getMaxTime: function () {
+    return this.ui.video[0].duration * 1000;
+  }
 
 });

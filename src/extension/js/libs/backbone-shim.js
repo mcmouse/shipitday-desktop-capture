@@ -2,10 +2,8 @@
 
 var _ = require('underscore');
 window._ = _;
-var $ = require('jquery');
-window.$ = $;
 var Backbone = require('backbone');
-Backbone.$ = $;
+Backbone.$ = window.$;
 var Marionette = require('backbone.marionette');
 
 module.exports = {
