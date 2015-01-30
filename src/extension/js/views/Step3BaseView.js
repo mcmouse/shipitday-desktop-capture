@@ -27,13 +27,21 @@ module.exports = Marionette.LayoutView.extend({
     play: '.play-button',
     edit: '.edit-button',
     toolTip: '.tooltipped',
-    progressBar: '#progress-bar'
+    progressBar: '#progress-bar',
+
+    textAdder: '.mdi-editor-format-size',
+    boxAdder: '.mdi-image-filter-none',
+    arrowAdder: '.mdi-navigation-arrow-forward'
   },
 
   events: {
     'click @ui.addShape': 'addShape',
     'click @ui.play': 'togglePlaying',
-    'click @ui.edit': 'toolNavToggle'
+    'click @ui.edit': 'toolNavToggle',
+
+    'click @ui.textAdder': 'textAdder',
+    'click @ui.boxAdder': 'boxAdder',
+    'click @ui.arrowAdder': 'arrowAdder',
   },
 
   onShow: function () {
@@ -121,6 +129,18 @@ module.exports = Marionette.LayoutView.extend({
 
   getVideo: function () {
     return this.ui.video[0];
+  },
+
+  textAdder: function() {
+    this.trigger('addText');
+  },
+
+  boxAdder: function() {
+    this.trigger('addBox');
+  },
+
+  arrowAdder: function() {
+    this.trigger('addArrow');
   }
 
 });

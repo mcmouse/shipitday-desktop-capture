@@ -164,3 +164,13 @@ canvas {
 .canvas-container {
   margin: 15px auto;
 }
+
+#progress-bar {
+  width: 100%;
+  max-width: 640px;
+  display: block;
+  border: 1px solid black;
+}
+#progress-bar span {
+  border: 1px solid;
+}
