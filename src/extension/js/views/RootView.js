@@ -107,6 +107,6 @@ module.exports = Marionette.LayoutView.extend({
   },
 
   hideLoader: function() {
-    this.ui.preloader.removelass('active');
+    this.ui.preloader.removeCass('active');
   }
 });
