@@ -63,9 +63,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 * Modify directory load order here
 * Modify individual directories load order in individual _all.scss files
 */
+html {
+  overflow-y: scroll;
+}
+
 body {
   background-image: url("../img/pixel_weave.png");
-  overflow-y: scroll;
 }
 
 video {
@@ -152,6 +155,7 @@ canvas {
 #hidden-video {
   visibility: hidden;
   pointer-events: none;
+  height: 1px;
 }
 
 .side-nav li {
@@ -221,4 +225,5 @@ canvas {
 
 .close-timeline {
   float: right;
+  margin-bottom: 0 !important;
 }
