@@ -25,7 +25,8 @@ module.exports = Marionette.LayoutView.extend({
   template: RootTemplate,
 
   ui: {
-    overlay: '.overlay'
+    overlay: '.overlay',
+    preloader: '.preloader-wrapper'
   },
 
   regions: {
@@ -99,5 +100,13 @@ module.exports = Marionette.LayoutView.extend({
 
   fadeIn: function () {
     this.ui.overlay.removeClass('hide');
+  },
+
+  showLoader: function() {
+    this.ui.preloader.addClass('active');
+  },
+
+  hideLoader: function() {
+    this.ui.preloader.removelass('active');
   }
 });

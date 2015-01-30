@@ -57,6 +57,8 @@ module.exports = Marionette.Object.extend({
   submitVideo: function () {
     var files = {};
 
+    desktopCaptureApp.RootView.showLoader();
+
     desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
 
       files.video = {
@@ -84,6 +86,7 @@ module.exports = Marionette.Object.extend({
             contentType: 'application/json; charset=UTF-8',
             success: function (response) {
               desktopCaptureApp.options.downloadSrc = response;
+              desktopCaptureApp.RootView.hideLoader();
               desktopCaptureApp.showStep(4);
             },
             error: function (xhr, status, error) {
@@ -99,6 +102,7 @@ module.exports = Marionette.Object.extend({
           contentType: 'application/json; charset=UTF-8',
           success: function (response) {
             desktopCaptureApp.options.downloadSrc = response;
+            desktopCaptureApp.RootView.hideLoader();
             desktopCaptureApp.showStep(4);
           },
           error: function (xhr, status, error) {

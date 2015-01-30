@@ -36,9 +36,10 @@ margin: 20px;
 }
 }
 
-.mic {
-display: block !important;
-margin: 0 auto;
+.btn-floating.mic {
+	display: block;
+	margin: 15px auto;
+	@include transition(all 0.3s);
 }
 
 .button-wrap {
@@ -65,4 +66,16 @@ margin: 0 auto;
 .record, .stop {
 	margin-left: 10px;
 	margin-right: 10px;
+	@include transition(all 0.3s);
+}
+
+.preloader-wrapper {
+	display: block;
+	margin: 0 auto;
+	// @include transition(all 0.3s);
+	
+	&.active {
+		display: block;
+		z-index: 5;
+	}
 }
