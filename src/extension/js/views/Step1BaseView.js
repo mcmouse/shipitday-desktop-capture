@@ -13,12 +13,15 @@ module.exports = Marionette.ItemView.extend({
   ui: {
     record: '.record',
     previewVideo: '#previewvideo',
-    stop: '.stop'
+    stop: '.stop',
+    mic: '.mic',
+    micIcon: '.micIcon'
   },
 
   events: {
     'click @ui.record': 'recordVideo',
     'click @ui.stop': 'stopVideo',
+    'click @ui.mic': 'activateAudio'
   },
 
   recordVideo: function () {
@@ -29,6 +32,22 @@ module.exports = Marionette.ItemView.extend({
 
   stopVideo: function () {
     this.trigger('stop');
+  },
+
+  activateAudio: function () {
+    // var $mic = $('.mic');
+    // $micIcon = $('.mic i');
+    // this.ui.mic.click(function() {
+      if(this.ui.mic.hasClass('active')) {
+        this.ui.mic.removeClass('red active').addClass('green');
+        this.ui.micIcon.removeClass('mdi-av-mic').addClass('mdi-av-mic-off');
+      }
+
+      else {
+        this.ui.mic.addClass('active red').removeClass('green');
+        this.ui.micIcon.removeClass('mdi-av-mic-off').addClass('mdi-av-mic');
+      }
+    // });
   },
 
   setVideoSrc: function (src) {
