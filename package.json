@@ -18,6 +18,7 @@
     "backbone.marionette": "^2.3.0",
     "browser-sync": "^1.8.3",
     "browserify": "^8.1.0",
+    "cssify": "^0.6.0",
     "del": "^1.1.1",
     "elessar": "^1.8.3",
     "gulp": "^3.8.10",
