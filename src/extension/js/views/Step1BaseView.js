@@ -23,6 +23,8 @@ module.exports = Marionette.ItemView.extend({
 
   recordVideo: function () {
     this.trigger('record');
+    this.ui.record.hide();
+    this.ui.stop.show();
   },
 
   stopVideo: function () {
@@ -34,8 +36,4 @@ module.exports = Marionette.ItemView.extend({
     video.src = src;
     video.play();
   },
-
-  toggleControls: function () {
-    this.ui.previewVideo[0].controls = true;
-  }
 });

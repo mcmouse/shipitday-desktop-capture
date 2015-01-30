@@ -45,7 +45,7 @@ module.exports = Marionette.Application.extend({
 
   setupOptions: function () {
     this.options = {
-      uploadEndpoint: '/upload',
+      uploadEndpoint: 'http://ec2-54-200-174-110.us-west-2.compute.amazonaws.com:3100/upload',
     };
   }
 });

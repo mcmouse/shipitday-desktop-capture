@@ -9902,10 +9902,33 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
  * Modify directory load order here
  * Modify individual directories load order in individual _all.scss files
  */
+<<<<<<< HEAD
 body {
   background-image: url("../img/pixel_weave.png");
 }
 
+=======
+/** Use to modify include order and toggle includes for the base directory */
+/** Use to modify include order and toggle includes for the helpers directory */
+/* ------------------------ 
+Breakpoint Usage:
+
+.selector {
+  color: red;
+  @include breakpoint(desktop) { width: 50px; }
+  @include breakpoint(mobile) { width: 100%; }
+}
+*/
+/** Use to modify include order and toggle includes for the components directory */
+video {
+  width: 640px;
+  height: 480px;
+}
+
+/** Use to modify include order and toggle includes for the layout directory */
+/** Use to modify include order and toggle includes for the pages directory */
+/** Use to modify include order and toggle includes for the vendor directory */
+>>>>>>> a25498f0c9546707b9946046c293378b416ee555
 video {
   width: 640px;
   height: 480px;
