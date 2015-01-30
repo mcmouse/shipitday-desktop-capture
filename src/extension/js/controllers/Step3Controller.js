@@ -49,6 +49,9 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'addArrow', this.addArrow);
     this.listenTo(this.view, 'addTriangle', this.addTriangle);
 
+    this.listenTo(this.view, 'submit', this.submitVideo);
+    this.listenTo(this.view, 'restart', desktopCaptureApp.restart.bind(desktopCaptureApp));
+
     this.listenTo(this.view, 'sliderReady', this.setupSlider);
     if (this.view._isShown) {
       this.setupEditor();
@@ -64,7 +67,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'square',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -78,7 +81,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'text',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -92,7 +95,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'box',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -106,7 +109,7 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'arrow',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
   },
@@ -120,13 +123,9 @@ module.exports = Marionette.Object.extend({
     newShape.initializeShape({
       type: 'triangle',
       color: 'red',
-    }, this.addShapeToCanvas.bind(this));
+    });
 
     this.collection.add(newShape);
-  },
-
-  addShapeToCanvas: function (shape) {
-    this.canvas.add(shape);
   },
 
   setupEditor: function () {
@@ -155,6 +154,7 @@ module.exports = Marionette.Object.extend({
         model.hideShape();
       }
     });
+    s3controller.updateBarPosition();
   },
 
   setupCollection: function () {
@@ -181,13 +181,14 @@ module.exports = Marionette.Object.extend({
     if (s3controller.view.isPlaying()) {
       requestAnimationFrame(s3controller.draw);
     }
-    s3controller.canvas.renderAll();
+    s3controller.updateShapes();
     s3controller.updateBarPosition();
+    s3controller.canvas.renderAll();
   },
 
   setupSlider: function () {
     this.slider = this.view.getSlider();
-    this.slider.on('slideStop', function (time) {
+    this.slider.on('slide', function (time) {
       var video = this.view.getVideo();
       video.currentTime = time.value / 1000;
       video.pause();
@@ -220,11 +221,12 @@ module.exports = Marionette.Object.extend({
         height: 720
       }
     });
-
+    this.canvas.deactivateAll().renderAll()
     this.recorder.startRecording();
     video.play();
     this.draw();
-    this.video.onended = function () {
+    video.onended = function () {
+      this.recorder.stopRecording();
       this.recorder.getDataURL(function (dataURL) {
 
         files.video = {

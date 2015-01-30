@@ -9,6 +9,8 @@
 
 "use strict";
 
+window.IE = false;
+
 function h2clog(e) {
   if (_html2canvas.logging && window.console && window.console.log) {
     window.console.log(e)
