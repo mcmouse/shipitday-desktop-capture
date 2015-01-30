@@ -50,7 +50,10 @@ module.exports = Marionette.Object.extend({
   },
 
   setupCanvas: function () {
-    this.canvas = new fabric.Canvas(this.view.ui.canvas.attr('id'));
+    this.canvas = new fabric.Canvas(this.view.ui.canvas.attr('id'), {
+      width: 640,
+      height: 480
+    });
   },
 
   setupCollection: function () {
