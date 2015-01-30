@@ -7,6 +7,8 @@
 var Marionette = require('backbone-shim').Marionette,
   Step3Template = require('templates/Step3Template.html'),
   ShapeCollectionView = require('views/ShapeCollectionView');
+  
+var playIcon = "<i class='mdi-av-skip-next right'></i>";
 
 module.exports = Marionette.LayoutView.extend({
   template: Step3Template,
@@ -70,11 +72,11 @@ module.exports = Marionette.LayoutView.extend({
   togglePlaying: function () {
     if (this.isPlaying()) {
       this.ui.video[0].pause();
-      this.ui.play.text('Play');
+      this.ui.play.html('Play' + playIcon);
       this.trigger('paused');
     } else {
       this.ui.video[0].play();
-      this.ui.play.text('Pause');
+      this.ui.play.html('Pause' + playIcon);
       this.trigger('playing');
     }
   },
@@ -126,7 +128,7 @@ module.exports = Marionette.LayoutView.extend({
 
   bindEndEvent: function () {
     this.ui.video[0].onended = function () {
-      this.ui.play.text('Play');
+      this.ui.play.html('Play' + playIcon);
       this.ui.video[0].currentTime = 0;
     }.bind(this);
   },
