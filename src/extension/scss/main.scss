@@ -81,3 +81,8 @@ nav {
 		@include transform(transition(-50%, -50%));
 	}
 }
+
+canvas {
+	width: 640px;
+	height: 480px;
+}

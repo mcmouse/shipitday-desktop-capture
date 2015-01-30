@@ -140,3 +140,8 @@ nav img {
   -webkit-transform: transition(-50%, -50%);
   transform: transition(-50%, -50%);
 }
+
+canvas {
+  width: 640px;
+  height: 480px;
+}
