@@ -110,8 +110,8 @@ header img {
   opacity: 0;
 }
 
-.stop {
-  display: none !important;
+.btn.stop {
+  display: none;
 }
 
 .record, .stop {
