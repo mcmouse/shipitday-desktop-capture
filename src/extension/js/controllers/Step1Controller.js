@@ -52,7 +52,10 @@ module.exports = Marionette.Object.extend({
     this.stream = stream;
     this.view.setVideoSrc(URL.createObjectURL(stream));
     stream.onended = this.streamEnded.bind(this);
-    desktopCaptureApp.models.Video.set('recorder', this.recorder);
+
+    //May want to change how we pass models
+    this.view.recorder = this.recorder;
+
     this.recorder = RecordRTC(this.stream, {
       type: "video",
       canvas: {
@@ -65,6 +68,8 @@ module.exports = Marionette.Object.extend({
       }
     });
 
+    
+    desktopCaptureApp.models.Video.set('recorder', this.recorder);
     this.recorder.startRecording();
   },
 
