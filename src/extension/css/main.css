@@ -133,4 +133,5 @@ header img {
 }
 .preloader-wrapper.active {
   display: block;
+  z-index: 5;
 }
