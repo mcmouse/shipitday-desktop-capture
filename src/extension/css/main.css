@@ -230,12 +230,12 @@ canvas {
 }
 
 .edit-button {
-  position: absolute;
+  position: absolute !important;
   top: 35px;
   left: 108px;
 }
 
 .play-button {
-  display: block;
+  display: block !important;
   margin: 0 auto;
 }
