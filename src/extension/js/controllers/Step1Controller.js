@@ -42,7 +42,8 @@ module.exports = Marionette.Object.extend({
           chromeMediaSource: "desktop",
           chromeMediaSourceId: id,
           maxWidth: 1920,
-          maxHeight: 1200
+          maxHeight: 1200,
+          minFrameRate: 30
         }
       }
     }, this.gotStream.bind(this), this.getUserMediaError.bind(this));
@@ -51,10 +52,20 @@ module.exports = Marionette.Object.extend({
   gotStream: function (stream) {
     this.stream = stream;
     this.view.setVideoSrc(URL.createObjectURL(stream));
+    var wh = this.view.getVideoSize();
+    console.log(wh);
     stream.onended = this.streamEnded.bind(this);
 
     this.recorder = RecordRTC(stream, {
-      type: "video"
+      type: "video",
+      canvas: {
+        width: wh.width,
+        height: wh.height
+      },
+      video: {
+        width: wh.width,
+        height: wh.height
+      }
     });
     desktopCaptureApp.models.Video.set('recorder', this.recorder);
     this.recorder.startRecording();
