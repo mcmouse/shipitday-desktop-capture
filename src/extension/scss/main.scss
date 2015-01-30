@@ -1,47 +1,48 @@
 /** 
- * Master SCSS file, use to modify import order.
- * Keep element styles in the appropriate folders
- */
+* Master SCSS file, use to modify import order.
+* Keep element styles in the appropriate folders
+*/
 @import 'compass';
 
 @include global-reset;
 
 /** 
- * Load all partials
- * Modify directory load order here
- * Modify individual directories load order in individual _all.scss files
- */
+* Load all partials
+* Modify directory load order here
+* Modify individual directories load order in individual _all.scss files
+*/
 
- body {
- 	background-image: url('../img/pixel_weave.png');
- }
+body {
+background-image: url('../img/pixel_weave.png');
+}
 
 video {
-  width: 640px;
-  height: 480px;
-  background: #000;
-  display: block !important;
-  margin: 25px auto;
+width: 640px;
+height: 480px;
+background: #000;
+display: block !important;
+margin: 25px auto;
 }
 
 header {
-	background-color: #00BCD4;
-	height: 100px;
-	
-	img {
-		width: 100%;
-		max-width: 100px;
-		float: left;
-		margin: 20px;
-	}
+background-color: #00BCD4  ;
+height: 100px;
+
+img {
+width: 100%;
+max-width: 100px;
+float: left;
+margin: 20px;
+}
 }
 
 .mic {
-	display: block !important;
-	margin: 0 auto;
+display: block !important;
+margin: 0 auto;
 }
 
-.button-wrap {
+.button-
+wrap {
 	display: block;
 	margin: 0 auto;
 	text-align: center;
@@ -51,4 +52,3 @@ header {
 	margin-left: 10px;
 	margin-right: 10px;
 }
-

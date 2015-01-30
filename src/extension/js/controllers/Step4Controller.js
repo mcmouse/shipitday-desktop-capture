@@ -12,6 +12,8 @@ var Marionette = require('backbone-shim').Marionette;
 module.exports = Marionette.Object.extend({
   initialize: function (options) {
     this.view = options.view;
+    var serverRoot = desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.downloadEndpoint + desktopCaptureApp.options.downloadSrc;
+    this.view.setVideoSrc(serverRoot);
     this.setupEvents();
   },
 

@@ -40,7 +40,7 @@ module.exports = Marionette.Object.extend({
       //showLoader()
 
       $.ajax({
-        url: desktopCaptureApp.options.uploadEndpoint,
+        url: desktopCaptureApp.options.serverRoot + desktopCaptureApp.options.uploadEndpoint,
         data: JSON.stringify(files),
         type: 'POST',
         contentType: 'application/json; charset=UTF-8',
