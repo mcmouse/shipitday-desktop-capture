@@ -14,27 +14,15 @@ module.exports = Marionette.ItemView.extend({
     record: '.record',
     previewVideo: '#previewvideo',
     stop: '.stop',
-<<<<<<< HEAD
     mic: '.mic',
     micIcon: '.micIcon'
-=======
-    audio: '.mic',
-    audioEl: '#previewaudio',
->>>>>>> 5d52cca946b174d750b106756e4b07fc6f6bdae9
   },
 
   events: {
     'click @ui.record': 'recordVideo',
     'click @ui.stop': 'stopVideo',
-<<<<<<< HEAD
-    'click @ui.mic': 'activateAudio'
-=======
+    'click @ui.mic': 'activateAudio',
     'click @ui.audio': 'recordAudio',
-  },
-
-  recordAudio: function () {
-    this.trigger('audio');
->>>>>>> 5d52cca946b174d750b106756e4b07fc6f6bdae9
   },
 
   recordVideo: function () {
@@ -51,15 +39,14 @@ module.exports = Marionette.ItemView.extend({
     // var $mic = $('.mic');
     // $micIcon = $('.mic i');
     // this.ui.mic.click(function() {
-      if(this.ui.mic.hasClass('active')) {
-        this.ui.mic.removeClass('red active').addClass('green');
-        this.ui.micIcon.removeClass('mdi-av-mic').addClass('mdi-av-mic-off');
-      }
-
-      else {
-        this.ui.mic.addClass('active red').removeClass('green');
-        this.ui.micIcon.removeClass('mdi-av-mic-off').addClass('mdi-av-mic');
-      }
+    this.trigger('audio');
+    if (this.ui.mic.hasClass('active')) {
+      this.ui.mic.removeClass('red active').addClass('green');
+      this.ui.micIcon.removeClass('mdi-av-mic').addClass('mdi-av-mic-off');
+    } else {
+      this.ui.mic.addClass('active red').removeClass('green');
+      this.ui.micIcon.removeClass('mdi-av-mic-off').addClass('mdi-av-mic');
+    }
     // });
   },
 
