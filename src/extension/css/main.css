@@ -199,8 +199,8 @@ canvas {
   display: block !important;
   margin: 0 auto !important;
   max-width: 655px !important;
-  height: 37px !important;
-  line-height: 37px !important;
+  height: 50px !important;
+  line-height: 50px !important;
   background: none !important;
 }
 
@@ -226,4 +226,5 @@ canvas {
 .close-timeline {
   float: right;
   margin-bottom: 0 !important;
+  margin-top: 6.5px;
 }
