@@ -141,6 +141,22 @@ module.exports = Marionette.Object.extend({
     });
   },
 
+  updateShapes: function () {
+    var currentTime = this.view.getCurrentTime();
+    this.collection.each(function (model) {
+      var bounds = model.getBounds();
+      var showing = model.isShowing();
+      if (bounds.start <= currentTime && bounds.end >= currentTime && !showing) {
+        s3controller.canvas.add(model.get('Shape'));
+        model.set('showing', true);
+        model.showShape();
+      } else if ((bounds.start > currentTime && showing) || (bounds.end < currentTime && showing)) {
+        model.set('showing', false);
+        model.hideShape();
+      }
+    });
+  },
+
   setupCollection: function () {
     this.view.initializeCollection(this.collection);
   },
