@@ -24,16 +24,21 @@ module.exports = Marionette.LayoutView.extend({
     audio: '#hidden-audio',
     addShape: '#add-shape',
     canvas: '#canvas',
-    play: '.play-button'
+    play: '.play-button',
+    edit: '.edit-button',
+    toolTip: '.tooltipped'
   },
 
   events: {
     'click @ui.addShape': 'addShape',
     'click @ui.play': 'togglePlaying',
+    'click @ui.edit': 'toolNavToggle'
   },
 
   onShow: function () {
     this.trigger('show');
+    this.ui.edit.sideNav();
+    this.ui.toolTip.tooltip({delay: 50});
   },
 
   addShape: function () {
@@ -59,6 +64,10 @@ module.exports = Marionette.LayoutView.extend({
       this.ui.video[0].play();
       this.ui.play.text('Pause');
     }
+  },
+
+  toolNavToggle: function () {
+    // this.ui.edit.sideNav('show');
   },
 
   setVideoSrc: function (src) {

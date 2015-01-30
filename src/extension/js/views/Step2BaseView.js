@@ -19,11 +19,16 @@ module.exports = Marionette.ItemView.extend({
     audio: '#review-audio',
     nextButton: '.next-button',
     backButton: '.back-button',
+    toolTip: '.tooltipped'
   },
 
   events: {
     'click @ui.nextButton': 'submitVideo',
     'click @ui.backButton': 'restart',
+  },
+
+  onShow: function() {
+    this.ui.toolTip.tooltip({delay: 50});
   },
 
   submitVideo: function () {
