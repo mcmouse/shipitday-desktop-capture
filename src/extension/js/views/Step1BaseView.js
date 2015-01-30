@@ -26,13 +26,8 @@ module.exports = Marionette.ItemView.extend({
     'click @ui.audio': 'recordAudio',
   },
 
-  onRender: function() {
-    $(window).load(function() {
-      console.log('test');
-      console.log(this.ui.toolTip.tooltip);
-      console.log('test');
-      this.ui.toolTip.tooltip({delay: 50});
-    });
+  onShow: function() {
+    this.ui.toolTip.tooltip({delay: 50});
   },
 
   recordVideo: function () {

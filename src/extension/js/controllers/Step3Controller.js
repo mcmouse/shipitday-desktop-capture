@@ -23,6 +23,7 @@ module.exports = Marionette.Object.extend({
     this.recorder.getDataURL(function (url) {
       this.view.setVideoSrc(url);
       this.view.bindEndEvent();
+      this.setupVideo();
     }.bind(this));
 
     this.hasAudio = false;
@@ -34,11 +35,13 @@ module.exports = Marionette.Object.extend({
         this.view.bindPlayEvents();
       }.bind(this));
     }
+    window.s3controller = this;
   },
 
   setupEvents: function () {
     this.listenTo(this.view, 'show', this.setupEditor);
     this.listenTo(this.view, 'addShape', this.addShape);
+    this.listenTo(this.view, 'playing', this.draw);
     if (this.view._isShown) {
       this.setupEditor();
     }
@@ -54,8 +57,6 @@ module.exports = Marionette.Object.extend({
       type: 'arrow',
       color: 'red',
     }));
-
-    newShape.initializeRangeBar();
 
     this.collection.add(
       newShape
@@ -76,6 +77,26 @@ module.exports = Marionette.Object.extend({
 
   setupCollection: function () {
     this.view.initializeCollection(this.collection);
-  }
+  },
 
+  setupVideo: function () {
+    this.video = new fabric.Image(this.view.getVideo(), {
+      left: 0,
+      top: 0,
+      'selectable': false,
+      width: 640,
+      height: 480
+    });
+
+    this.canvas.add(this.video);
+
+    this.draw();
+  },
+
+  draw: function () {
+    if (s3controller.view.isPlaying()) {
+      requestAnimationFrame(s3controller.draw);
+    }
+    s3controller.canvas.renderAll();
+  }
 });
