@@ -39,4 +39,10 @@ module.exports = Marionette.ItemView.extend({
     //this.trigger('submit');
   },
 
+  setVideoSrc: function (src) {
+    var video = this.ui.video[0];
+    video.src = src;
+    video.play();
+  },
+
 });
