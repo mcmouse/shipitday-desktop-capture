@@ -23,6 +23,8 @@ module.exports = Marionette.ItemView.extend({
 
   recordVideo: function () {
     this.trigger('record');
+    this.ui.record.hide();
+    this.ui.stop.show();
   },
 
   stopVideo: function () {
