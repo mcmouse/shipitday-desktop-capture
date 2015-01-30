@@ -32,7 +32,7 @@ module.exports = Marionette.ItemView.extend({
   },
 
   setVideoSrc: function (src) {
-    var video = this.ui.video[0];
+    var video = this.ui.previewVideo[0];
     video.src = src;
     video.play();
   },
