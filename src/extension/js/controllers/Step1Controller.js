@@ -74,9 +74,6 @@ module.exports = Marionette.Object.extend({
 
   streamEnded: function () {
     this.recorder.stopRecording();
-    this.recorder.getDataURL(function (url) {
-      this.view.toggleControls();
-      this.view.setVideoSrc(url);
-    }.bind(this));
+    desktopCaptureApp.showStep(2);
   }
 });

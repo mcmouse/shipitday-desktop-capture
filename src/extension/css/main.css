@@ -82,6 +82,11 @@ Breakpoint Usage:
 }
 */
 /** Use to modify include order and toggle includes for the components directory */
+video {
+  width: 640px;
+  height: 480px;
+}
+
 /** Use to modify include order and toggle includes for the layout directory */
 /** Use to modify include order and toggle includes for the pages directory */
 /** Use to modify include order and toggle includes for the vendor directory */

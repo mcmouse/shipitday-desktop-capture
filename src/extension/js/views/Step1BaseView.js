@@ -27,15 +27,5 @@ module.exports = Marionette.ItemView.extend({
 
   stopVideo: function () {
     this.trigger('stop');
-  },
-
-  setVideoSrc: function (src) {
-    var video = this.ui.previewVideo[0];
-    video.src = src;
-    video.play();
-  },
-
-  toggleControls: function () {
-    this.ui.previewVideo[0].controls = true;
   }
 });

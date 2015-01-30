@@ -29,23 +29,24 @@ module.exports = Marionette.Object.extend({
   submitVideo: function () {
     var files = {};
 
-    var audioDataURL = '',
-      videoDataURL;
-
     desktopCaptureApp.models.Video.get('recorder').getDataURL(function (dataURL) {
-      videoDataURL = dataURL;
+
+      files.video = {
+        name: Utilities.getName() + '.webm',
+        type: 'video/webm',
+        contents: dataURL,
+      };
+
+      //showLoader()
+
+      $.ajax({
+        url: desktopCaptureApp.options.uploadEndpoint,
+        data: files,
+        success: function (response) {
+          desktopCaptureApp.options.downloadSrc = response;
+          desktopCaptureApp.showStep(4);
+        }
+      });
     });
-
-    files.video = {
-      name: Utilities.getName() + '.webm',
-      type: 'video/webm',
-      contents: videoDataURL,
-    };
-
-    files.audio = {
-      name: Utilities.getName() + '.wav',
-      type: 'audio/wav',
-      contents: audioDataURL,
-    };
   },
 });
