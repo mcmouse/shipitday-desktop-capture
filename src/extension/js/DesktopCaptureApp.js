@@ -45,7 +45,7 @@ module.exports = Marionette.Application.extend({
 
   setupOptions: function () {
     this.options = {
-      serverRoot: 'http://localhost:3200/',
+      serverRoot: 'http://tomlagier.com/vidsketch/',
       uploadEndpoint: 'upload',
       downloadEndpoint: 'data/'
     };

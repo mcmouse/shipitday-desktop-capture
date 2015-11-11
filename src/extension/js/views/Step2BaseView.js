@@ -27,8 +27,10 @@ module.exports = Marionette.ItemView.extend({
     'click @ui.backButton': 'restart',
   },
 
-  onShow: function() {
-    this.ui.toolTip.tooltip({delay: 50});
+  onShow: function () {
+    this.ui.toolTip.tooltip({
+      delay: 50
+    });
   },
 
   submitVideo: function () {
@@ -61,7 +63,9 @@ module.exports = Marionette.ItemView.extend({
     }.bind(this);
 
     this.ui.video[0].onpause = function () {
-      this.ui.audio[0].pause();
+      if (this.ui.audio[0].pause) {
+        this.ui.audio[0].pause();
+      }
     }.bind(this);
 
     this.ui.video[0].play();

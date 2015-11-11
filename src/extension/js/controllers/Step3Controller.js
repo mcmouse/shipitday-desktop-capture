@@ -13,9 +13,14 @@ var Backbone = require('backbone-shim').Backbone,
 
 module.exports = Marionette.Object.extend({
   initialize: function (options) {
+
     this.view = options.view;
     this.collection = new Backbone.Collection();
     this.setupEvents();
+
+    if (this.view._isShown) {
+      this.setupEditor();
+    }
 
     this.recorder = desktopCaptureApp.models.Video.get('recorder');
     this.audioRecorder = desktopCaptureApp.models.Audio.get('recorder');
@@ -35,6 +40,7 @@ module.exports = Marionette.Object.extend({
         this.view.bindPlayEvents();
       }.bind(this));
     }
+
     window.s3controller = this;
   },
 
@@ -53,9 +59,6 @@ module.exports = Marionette.Object.extend({
     this.listenTo(this.view, 'restart', desktopCaptureApp.restart.bind(desktopCaptureApp));
 
     this.listenTo(this.view, 'sliderReady', this.setupSlider);
-    if (this.view._isShown) {
-      this.setupEditor();
-    }
   },
 
   addText: function () {
@@ -250,7 +253,6 @@ module.exports = Marionette.Object.extend({
             }
           });
         }
-        //showLoader()
       }.bind(this));
     }.bind(this);
   },

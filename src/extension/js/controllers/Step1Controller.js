@@ -107,6 +107,9 @@ module.exports = Marionette.Object.extend({
 
   streamEnded: function () {
     this.recorder.stopRecording();
+    if (this.audioStream) {
+      this.audioRecorder.stopRecording();
+    }
     desktopCaptureApp.showStep(2);
   }
 });
