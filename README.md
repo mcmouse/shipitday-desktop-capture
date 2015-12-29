@@ -1,5 +1,7 @@
-# ShipItDay Desktop Capture (name TBD)
+# VidSketch
 Chrome extension and NodeJS server to capture a user's desktop, add some simple overlays, and distribute in a variety of formats.
+
+[Published on the Chrome App Store](https://chrome.google.com/webstore/detail/vidsketch/pmfeakipkeenfhglebfbbfiopaghdodd)!
 
 ---
 
