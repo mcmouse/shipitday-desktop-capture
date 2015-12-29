@@ -47,7 +47,7 @@ module.exports = Marionette.Object.extend({
   },
 
   stopVideo: function () {
-    this.stream.stop();
+    this.track.stop();
     if (this.audioStream) {
       this.audioStream.stop();
     }
@@ -75,6 +75,7 @@ module.exports = Marionette.Object.extend({
 
   gotStream: function (stream) {
     this.stream = stream;
+    this.track = stream.getVideoTracks()[0];
     this.view.setVideoSrc(URL.createObjectURL(stream));
     stream.onended = this.streamEnded.bind(this);
 
